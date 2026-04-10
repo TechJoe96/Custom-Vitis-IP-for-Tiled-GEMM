@@ -15,13 +15,15 @@ The main operation is:
 
 ```text
 C = A × B
-
+```
 
 where:
 
+```text
 * `A` is an `M × K` matrix
 * `B` is a `K × N` matrix
 * `C` is an `M × N` output matrix
+```
 
 A more general GEMM form can be written as:
 
