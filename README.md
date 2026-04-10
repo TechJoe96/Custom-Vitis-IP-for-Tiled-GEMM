@@ -300,5 +300,3 @@ The custom IP itself includes:
 
 GEMM is a strong choice because it is a regular, highly parallel multiply-accumulate workload that maps well to FPGA acceleration.
 
-```
-```
