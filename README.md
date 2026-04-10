@@ -1,27 +1,7 @@
 # High-Level Project Outline: Custom Vitis IP for Tiled GEMM
 
-## a. GitHub Repo
 
-**Repository:**  
-https://github.com/TechJoe96/Custom-Vitis-IP-for-Tiled-GEMM
-
-**Planned outline file:**  
-https://github.com/TechJoe96/Custom-Vitis-IP-for-Tiled-GEMM/blob/main/plan.md
-
-This repository will contain the initial project outline and the remaining design information for the custom Vitis IP.
-
----
-
-## b. Project Team
-
-- YoungJo Choi
-- [Teammate Name]
-
-> Note: The project requires at least two students, so the second teammate name should be filled in before final submission.
-
----
-
-## c. IP Definition
+## a. IP Definition
 
 ### Project Title
 
@@ -101,7 +81,7 @@ These properties make GEMM a strong target for FPGA acceleration.
 
 ---
 
-## d. IP Architecture
+## b. IP Architecture
 
 ### Overall Design Choice
 
