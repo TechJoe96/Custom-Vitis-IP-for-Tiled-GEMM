@@ -1,6 +1,3 @@
-Here’s the copy-paste-ready `plan.md`, cleaned up from your draft 
-
-````md
 # High-Level Project Outline: Custom Vitis IP for Tiled GEMM
 
 ## a. GitHub Repo
@@ -38,7 +35,7 @@ The main operation is:
 
 ```text
 C = A × B
-````
+
 
 where:
 
