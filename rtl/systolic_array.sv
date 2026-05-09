@@ -57,8 +57,16 @@ module systolic_array #(
     endgenerate
 
     generate
-        for (j = 0; j < N; j = j + 1) begin: col_out
-            assign c_out[j] = c_wires[N-1][j];
+        for (j = 0; j < N; j = j + 1) begin: cdrain_col
+            shift_reg #(
+                .WIDTH (32),
+                .DEPTH (N-1-j)
+            ) col_drain (
+                .clk   (clk),
+                .rst   (rst),
+                .d_in  (c_wires[N-1][j]),
+                .d_out (c_out[j])
+            );
         end
     endgenerate
 endmodule
