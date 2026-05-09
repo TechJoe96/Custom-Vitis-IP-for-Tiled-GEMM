@@ -34,14 +34,17 @@ module pe_tb;
         a_in        = 0;
         b_in        = 0;
         c_in        = 0;
+
 // Hold reset for 3 clock cycles
         repeat (3) @(posedge clk);
         rst = 0;
-// Load weight = 3
-        load_weight = 1;
+
+// Load weight = 1
+        load_weight = 1;    // flag
         b_in        = 3;
-        @(posedge clk);
+        @(posedge clk);     // wait for the next cycle
         load_weight = 0;
+
 // Test 1: weight=3, a_in=5, c_in=10  →  expect c_out=25, a_out=5
         a_in = 5;
         c_in = 10;
@@ -49,6 +52,7 @@ module pe_tb;
         assert (a_out === 16'sd5)  else $error("Test 1: a_out=%0d, expected 5",  a_out);
         assert (c_out === 32'sd25) else $error("Test 1: c_out=%0d, expected 25", c_out);
         $display("PASS Test 1: a_out=%0d, c_out=%0d", a_out, c_out);
+
 // Test 2: a_in=7, c_in=25  →  expect c_out=46, a_out=7  (chains from test 1's c_out)
         a_in = 7;
         c_in = 25;
@@ -56,6 +60,7 @@ module pe_tb;
         assert (a_out === 16'sd7)  else $error("Test 2: a_out=%0d, expected 7",  a_out);
         assert (c_out === 32'sd46) else $error("Test 2: c_out=%0d, expected 46", c_out);
         $display("PASS Test 2: a_out=%0d, c_out=%0d", a_out, c_out);
+
 // Test 3: negative input  →  verify signed multiplication
         a_in = -2;
         c_in = 0;
@@ -63,8 +68,11 @@ module pe_tb;
         assert (a_out === -16'sd2) else $error("Test 3: a_out=%0d, expected -2", a_out);
         assert (c_out === -32'sd6) else $error("Test 3: c_out=%0d, expected -6", c_out);
         $display("PASS Test 3: a_out=%0d, c_out=%0d", a_out, c_out);
-        
+
         $display("All tests passed");
         $finish;
     end
 endmodule
+
+
+
