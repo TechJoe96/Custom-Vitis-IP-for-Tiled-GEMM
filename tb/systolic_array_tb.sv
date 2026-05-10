@@ -1,10 +1,19 @@
 `timescale 1ns/1ps
 
+// Step 4.5: Random-tile verification of the systolic array.
+// Reads N_TESTS independent A/B/C test cases (concatenated in the hex files),
+// runs each through the array, captures c_out row-by-row, and asserts a
+// bit-exact match against the C++ golden values.
+//
+// MUST match N_TESTS in software/dump_test_vectors.py.
 module systolic_array_tb;
 
-    parameter int N = 8;
+    parameter int N        = 8;
+    parameter int N_TESTS  = 100;
+    parameter int TILE_LEN = N * N;                 // values per tile per signal
+    parameter int TOTAL    = N_TESTS * TILE_LEN;    // values in each hex file
 
-    // Signals connecting to the DUT
+    // Signals connecting to the DUT (Design Under Test)
     logic clk;
     logic rst;
     logic load_weight;
@@ -25,36 +34,25 @@ module systolic_array_tb;
     // 100 MHz clock
     always #5 clk = ~clk;
 
-    // Test data
-    logic signed [15:0] a_tile      [N*N];
-    logic signed [15:0] b_tile      [N*N];
-    logic signed [31:0] c_expected  [N*N];
+    // Test-vector storage. One flat array per signal, holding all N_TESTS cases.
+    logic signed [15:0] a_tile_all      [TOTAL];
+    logic signed [15:0] b_tile_all      [TOTAL];
+    logic signed [31:0] c_expected_all  [TOTAL];
 
-    // PROBE arrays: populated by generate-time assigns so we can index at runtime
-    logic signed [15:0] probe_weights      [N][N];
-    logic signed [31:0] probe_pe_bot_cout  [N];
-    logic signed [31:0] probe_col0_cwires  [N];
+    // Pass/fail counters
+    int pass_count;
+    int fail_count;
+    int printed_failures;
 
-    genvar gi, gj;
-    generate
-        // Mirror every PE's loaded weight
-        for (gi = 0; gi < N; gi = gi + 1) begin: probe_w_row
-            for (gj = 0; gj < N; gj = gj + 1) begin: probe_w_col
-                assign probe_weights[gi][gj] = dut.row[gi].col[gj].pe_inst.weight;
-            end
-        end
-        // Mirror PE(N-1, *).c_out (bottom-row register output, before drain)
-        for (gj = 0; gj < N; gj = gj + 1) begin: probe_botcout
-            assign probe_pe_bot_cout[gj] = dut.row[N-1].col[gj].pe_inst.c_out;
-        end
-        // Mirror the entire column-0 c-chain at PE(0..N-1, 0).c_out
-        for (gi = 0; gi < N; gi = gi + 1) begin: probe_col0
-            assign probe_col0_cwires[gi] = dut.row[gi].col[0].pe_inst.c_out;
-        end
-    endgenerate
+    // Helper: index into the flat per-test storage
+    function automatic int idx(input int test, input int row, input int col);
+        idx = test*TILE_LEN + row*N + col;
+    endfunction
 
     initial begin
-        // Initialize
+        // -----------------------------------------------------------------
+        // Initial conditions
+        // -----------------------------------------------------------------
         clk         = 0;
         rst         = 1;
         load_weight = 0;
@@ -62,69 +60,88 @@ module systolic_array_tb;
         for (int i = 0; i < N; i++)
             for (int j = 0; j < N; j++)
                 b_in[i][j] = 0;
+        pass_count       = 0;
+        fail_count       = 0;
+        printed_failures = 0;
 
-        // Read test vectors from hex files
-        $readmemh("../tb/data/a_tile.hex",     a_tile);
-        $readmemh("../tb/data/b_tile.hex",     b_tile);
-        $readmemh("../tb/data/c_expected.hex", c_expected);
-        $display("Test vectors loaded.");
+        // Read all test vectors at once
+        $readmemh("../tb/data/a_tile.hex",     a_tile_all);
+        $readmemh("../tb/data/b_tile.hex",     b_tile_all);
+        $readmemh("../tb/data/c_expected.hex", c_expected_all);
+        $display("Loaded %0d test cases (%0d values per signal).", N_TESTS, TOTAL);
 
-        $display("a_tile row 0: %0d %0d %0d %0d %0d %0d %0d %0d",
-            a_tile[0], a_tile[1], a_tile[2], a_tile[3],
-            a_tile[4], a_tile[5], a_tile[6], a_tile[7]);
-        $display("b_tile row 0: %0d %0d %0d %0d %0d %0d %0d %0d",
-            b_tile[0], b_tile[1], b_tile[2], b_tile[3],
-            b_tile[4], b_tile[5], b_tile[6], b_tile[7]);
-        $display("c_expected row 0: %0d %0d %0d %0d %0d %0d %0d %0d",
-            c_expected[0], c_expected[1], c_expected[2], c_expected[3],
-            c_expected[4], c_expected[5], c_expected[6], c_expected[7]);
-
-        // Hold reset
+        // -----------------------------------------------------------------
+        // Reset
+        // -----------------------------------------------------------------
         repeat (3) @(posedge clk);
         rst = 0;
         @(posedge clk);
 
-        // Weight load
-        for (int i = 0; i < N; i++)
-            for (int j = 0; j < N; j++)
-                b_in[i][j] = b_tile[i*N + j];
-        load_weight = 1;
-        @(posedge clk);
-        load_weight = 0;
-        $display("--- weights loaded, starting A stream ---");
+        // -----------------------------------------------------------------
+        // Per-test loop
+        // -----------------------------------------------------------------
+        for (int T = 0; T < N_TESTS; T++) begin
 
-        // Print all loaded weights via the probe
-        $display("Loaded weights (B values inside PEs):");
-        for (int i = 0; i < N; i++) begin
-            $write("  Row %0d:", i);
-            for (int j = 0; j < N; j++)
-                $write(" %5d", probe_weights[i][j]);
-            $display("");
+            // ---- Load weights for test T ----
+            // Use NBA so the next-cycle behaviour is race-free.
+            for (int i = 0; i < N; i++)
+                for (int j = 0; j < N; j++)
+                    b_in[i][j] <= b_tile_all[idx(T, i, j)];
+            load_weight <= 1;
+            @(posedge clk);          // weights latch into PEs at this edge
+            load_weight <= 0;
+
+            // ---- Stream A row by row (8 edges, S_0..S_7) ----
+            for (int r = 0; r < N; r++) begin
+                for (int k = 0; k < N; k++) a_in[k] <= a_tile_all[idx(T, r, k)];
+                @(posedge clk);
+            end
+            for (int k = 0; k < N; k++) a_in[k] <= 0;
+
+            // ---- Wait 6 edges for the drain pipeline to fill ----
+            // c_out is all zeros during this stretch.
+            repeat (6) @(posedge clk);
+
+            // ---- Capture and check C[T] rows 0..7 ----
+            // After 6 drain-fill edges, c_out at the next edge holds C[T][0],
+            // then C[T][1], ..., C[T][7] on the following 7 edges.
+            for (int row = 0; row < N; row++) begin
+                @(posedge clk); #1;
+                for (int j = 0; j < N; j++) begin
+                    automatic logic signed [31:0] expected = c_expected_all[idx(T, row, j)];
+                    if (c_out[j] !== expected) begin
+                        fail_count++;
+                        if (printed_failures < 10) begin
+                            $display("FAIL  test=%0d  row=%0d  col=%0d  got=%0d  expected=%0d",
+                                     T, row, j, c_out[j], expected);
+                            printed_failures++;
+                            if (printed_failures == 10)
+                                $display("(further failures suppressed)");
+                        end
+                    end else begin
+                        pass_count++;
+                    end
+                end
+            end
+
+            // After capture, the array is clean (all c_outs and shift_regs flushed
+            // to zero), so the next iteration's load_weight edge starts fresh.
         end
 
-        // Stream A row by row.
-        // Use non-blocking (<=) so the new a_in value is committed in the NBA
-        // region of the CURRENT time slot, after every always_ff in S_t has
-        // already sampled the OLD a_in. This eliminates the TB-vs-RTL race in
-        // which shift_regs were latching the next iteration's a_in early.
-        for (int r = 0; r < N; r++) begin
-            for (int k = 0; k < N; k++) a_in[k] <= a_tile[r*N + k];
-            @(posedge clk);
-        end
-        for (int k = 0; k < N; k++) a_in[k] <= 0;
-        $display("--- A stream done, watching c_out for 30 cycles ---");
-
-        // Trace: c_out (post-drain), PE(7,*) (pre-drain bottom row), and column-0 chain
-        for (int cy = 0; cy < 30; cy++) begin
-            @(posedge clk); #1;
-            $write("cy %2d  c_out:", cy);
-            for (int j = 0; j < N; j++) $write(" %7d", c_out[j]);
-            $write("    PE(7,*):");
-            for (int j = 0; j < N; j++) $write(" %7d", probe_pe_bot_cout[j]);
-            $write("    col0 chain:");
-            for (int i = 0; i < N; i++) $write(" %7d", probe_col0_cwires[i]);
-            $display("");
-        end
+        // -----------------------------------------------------------------
+        // Summary
+        // -----------------------------------------------------------------
+        $display("");
+        $display("==================== SUMMARY ====================");
+        $display("Total checks: %0d  (%0d tests x %0d values each)",
+                 pass_count + fail_count, N_TESTS, TILE_LEN);
+        $display("Pass:         %0d", pass_count);
+        $display("Fail:         %0d", fail_count);
+        if (fail_count == 0)
+            $display("RESULT:       ALL TESTS PASSED");
+        else
+            $display("RESULT:       FAILED");
+        $display("=================================================");
 
         $finish;
     end

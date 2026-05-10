@@ -58,10 +58,8 @@ module systolic_array #(
 
     generate
         for (j = 0; j < N; j = j + 1) begin: cdrain_col
-            shift_reg #(
-                .WIDTH (32),
-                .DEPTH (N-1-j)
-            ) col_drain (
+            shift_reg #(.WIDTH (32), .DEPTH (N-1-j)) 
+            col_drain (
                 .clk   (clk),
                 .rst   (rst),
                 .d_in  (c_wires[N-1][j]),
