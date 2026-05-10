@@ -73,6 +73,15 @@ module systolic_array_tb;
         @(posedge clk);
         load_weight = 0;
         $display("--- weights loaded, starting A stream ---");
+        // Verify weights got loaded correctly
+        $display("Loaded weights (B values inside PEs):");
+        for (int i = 0; i < N; i++) begin
+            $write("  Row %0d:", i);
+            for (int j = 0; j < N; j++)
+                $write(" %5d", dut.row[i].col[j].pe_inst.weight);
+            $display("");
+        end
+
 
         // Stream A row by row for N cycles
         for (int r = 0; r < N; r++) begin
@@ -85,8 +94,10 @@ module systolic_array_tb;
         // Wide trace: print c_out for many cycles after streaming ends
         for (int cy = 0; cy < 30; cy++) begin
             @(posedge clk); #1;
-            $write("After cycle %2d: ", cy);
+            $write("cy %2d  c_out:", cy);
             for (int j = 0; j < N; j++) $write(" %7d", c_out[j]);
+            $write("    PE(7,*):");
+            for (int j = 0; j < N; j++) $write(" %7d", dut.row[7].col[j].pe_inst.c_out);
             $display("");
         end
 
