@@ -1,4 +1,5 @@
 `timescale 1ns/1ps
+
 module gemm_top #(
     parameter int N          = 8,
     parameter int WIDTH      = 16,
@@ -6,6 +7,7 @@ module gemm_top #(
 ) (
     input  logic                       s_axi_aclk,
     input  logic                       s_axi_aresetn,
+
     input  logic [ADDR_WIDTH-1:0]      s_axi_awaddr,
     input  logic                       s_axi_awvalid,
     output logic                       s_axi_awready,
@@ -16,6 +18,7 @@ module gemm_top #(
     output logic [1:0]                 s_axi_bresp,
     output logic                       s_axi_bvalid,
     input  logic                       s_axi_bready,
+
     input  logic [ADDR_WIDTH-1:0]      s_axi_araddr,
     input  logic                       s_axi_arvalid,
     output logic                       s_axi_arready,
@@ -23,64 +26,70 @@ module gemm_top #(
     output logic [1:0]                 s_axi_rresp,
     output logic                       s_axi_rvalid,
     input  logic                       s_axi_rready,
+
     input  logic                       a_wr_en,
     input  logic [$clog2(N)-1:0]       a_wr_addr,
     input  logic signed [WIDTH-1:0]    a_wr_data [N],
     input  logic                       b_wr_en,
     input  logic [$clog2(N)-1:0]       b_wr_addr,
     input  logic signed [WIDTH-1:0]    b_wr_data [N]
-// c_out port removed — now AXI-readable only
 );
+
     logic clk;
     logic rst;
     assign clk = s_axi_aclk;
     assign rst = ~s_axi_aresetn;
+
     logic                       start_pulse;
     logic                       fsm_done_pulse;
     logic [$clog2(N)-1:0]       a_rd_addr;
     logic                       stream_active;
     logic                       load_weight;
+
     logic signed [WIDTH-1:0]    a_rd_data [N];
     logic signed [WIDTH-1:0]    b_rd_data [N][N];
     logic signed [31:0]         c_out [N];
+
     logic signed [WIDTH-1:0] a_in_to_array [N];
     always_comb begin
         for (int k = 0; k < N; k++)
             a_in_to_array[k] = stream_active ? a_rd_data[k] : '0;
     end
-// Done latch (same as Step 7.2)
+
+    // Done latch — host polls this through STATUS register
     logic done_latched;
     always_ff @(posedge clk) begin
         if (rst)                  done_latched <= 1'b0;
         else if (start_pulse)     done_latched <= 1'b0;
         else if (fsm_done_pulse)  done_latched <= 1'b1;
     end
-// -------- C tile capture (revised) --------
+
+    // -------- C tile capture (single block, no nested-loop reset) --------
+    logic signed [31:0] c_latched [N][N];
     logic [3:0] cap_idx;    // 0..N-1 = capturing; N = idle/done
 
     always_ff @(posedge clk) begin
         if (rst) begin
-            cap_idx <= 4'd8;                         // idle
-            for (int i = 0; i < N; i++)
-                for (int j = 0; j < N; j++)
-                    c_latched[i][j] <= '0;
+            cap_idx <= 4'd8;
+            // c_latched intentionally not reset — it will be fully written
+            // before the host can read it (after the first compute completes)
         end else begin
-            // Capture c_out into c_latched[cap_idx] whenever cap_idx is in range
             if (fsm_done_pulse) begin
-                // start capture: row 0 at THIS edge, subsequent rows at next edges
+                // capture row 0 at this edge, prepare to capture rows 1..7 next
                 for (int j = 0; j < N; j++)
                     c_latched[0][j] <= c_out[j];
-                cap_idx <= 4'd1;                     // next edge captures row 1
+                cap_idx <= 4'd1;
             end else if (cap_idx < N) begin
                 for (int j = 0; j < N; j++)
                     c_latched[cap_idx][j] <= c_out[j];
-                if (cap_idx == N-1) cap_idx <= 4'd8; // done capturing
+                if (cap_idx == N-1) cap_idx <= 4'd8;
                 else                cap_idx <= cap_idx + 1;
             end
         end
     end
     // -------- end C capture --------
-axi_lite_ctrl #(.N(N), .ADDR_WIDTH(ADDR_WIDTH)) axi_ctrl (
+
+    axi_lite_ctrl #(.N(N), .ADDR_WIDTH(ADDR_WIDTH)) axi_ctrl (
         .s_axi_aclk    (s_axi_aclk),
         .s_axi_aresetn (s_axi_aresetn),
         .s_axi_awaddr  (s_axi_awaddr),
@@ -104,6 +113,7 @@ axi_lite_ctrl #(.N(N), .ADDR_WIDTH(ADDR_WIDTH)) axi_ctrl (
         .done_flag     (done_latched),
         .c_latched     (c_latched)
     );
+
     tile_ctrl #(.N(N), .DRAIN_CYCLES(6)) ctrl (
         .clk           (clk),
         .rst           (rst),
@@ -113,16 +123,20 @@ axi_lite_ctrl #(.N(N), .ADDR_WIDTH(ADDR_WIDTH)) axi_ctrl (
         .stream_active (stream_active),
         .done          (fsm_done_pulse)
     );
+
     a_tile_buffer #(.WIDTH(WIDTH), .N(N)) abuf (
         .clk(clk), .wr_en(a_wr_en), .wr_addr(a_wr_addr), .wr_data(a_wr_data),
         .rd_addr(a_rd_addr), .rd_data(a_rd_data)
     );
+
     b_tile_buffer #(.WIDTH(WIDTH), .N(N)) bbuf (
         .clk(clk), .wr_en(b_wr_en), .wr_addr(b_wr_addr), .wr_data(b_wr_data),
         .rd_data(b_rd_data)
     );
+
     systolic_array #(.N(N)) array (
         .clk(clk), .rst(rst), .load_weight(load_weight),
         .a_in(a_in_to_array), .b_in(b_rd_data), .c_out(c_out)
     );
+
 endmodule
