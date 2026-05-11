@@ -55,24 +55,28 @@ module gemm_top #(
         else if (start_pulse)     done_latched <= 1'b0;
         else if (fsm_done_pulse)  done_latched <= 1'b1;
     end
-// -------- C tile capture --------
-    logic signed [31:0] c_latched [N][N];
-    logic [3:0] cap_idx;   // 0..7 = capturing; 4'hF = idle
+// -------- C tile capture (revised) --------
+    logic [3:0] cap_idx;    // 0..N-1 = capturing; N = idle/done
+
     always_ff @(posedge clk) begin
-        if (rst)                  cap_idx <= 4'hF;
-        else if (fsm_done_pulse)  cap_idx <= 4'd0;
-        else if (cap_idx <= N-2)  cap_idx <= cap_idx + 1;
-        else if (cap_idx == N-1)  cap_idx <= 4'hF;
-    end
-    always_ff @(posedge clk) begin
-        if (fsm_done_pulse) begin
-            // At the edge after FSM's done, c_out shows row 0
-            for (int j = 0; j < N; j++)
-                c_latched[0][j] <= c_out[j];
-        end else if (cap_idx <= N-2) begin
-            // Subsequent edges capture rows 1..7
-            for (int j = 0; j < N; j++)
-                c_latched[cap_idx + 1][j] <= c_out[j];
+        if (rst) begin
+            cap_idx <= 4'd8;                         // idle
+            for (int i = 0; i < N; i++)
+                for (int j = 0; j < N; j++)
+                    c_latched[i][j] <= '0;
+        end else begin
+            // Capture c_out into c_latched[cap_idx] whenever cap_idx is in range
+            if (fsm_done_pulse) begin
+                // start capture: row 0 at THIS edge, subsequent rows at next edges
+                for (int j = 0; j < N; j++)
+                    c_latched[0][j] <= c_out[j];
+                cap_idx <= 4'd1;                     // next edge captures row 1
+            end else if (cap_idx < N) begin
+                for (int j = 0; j < N; j++)
+                    c_latched[cap_idx][j] <= c_out[j];
+                if (cap_idx == N-1) cap_idx <= 4'd8; // done capturing
+                else                cap_idx <= cap_idx + 1;
+            end
         end
     end
     // -------- end C capture --------
