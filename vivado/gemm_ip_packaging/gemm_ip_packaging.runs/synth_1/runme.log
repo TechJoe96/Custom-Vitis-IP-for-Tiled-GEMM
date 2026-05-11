@@ -1,0 +1,1210 @@
+
+*** Running vivado
+    with args -log gemm_top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source gemm_top.tcl
+
+
+****** Vivado v2023.2 (64-bit)
+  **** SW Build 4029153 on Fri Oct 13 20:13:54 MDT 2023
+  **** IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
+  **** SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source gemm_top.tcl -notrace
+create_project: Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 1594.598 ; gain = 9.953 ; free physical = 826570 ; free virtual = 1164205
+Command: synth_design -top gemm_top -part xc7z020clg400-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 2469111
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2015.219 ; gain = 416.652 ; free physical = 825899 ; free virtual = 1163537
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'gemm_top' [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/gemm_top.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'axi_lite_ctrl' [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/axi_lite_ctrl.sv:3]
+	Parameter N bound to: 32'sb00000000000000000000000000001000 
+	Parameter ADDR_WIDTH bound to: 32'sb00000000000000000000000000001001 
+INFO: [Synth 8-155] case statement is not full and has no default [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/axi_lite_ctrl.sv:51]
+INFO: [Synth 8-6155] done synthesizing module 'axi_lite_ctrl' (0#1) [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/axi_lite_ctrl.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'tile_ctrl' [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/tile_ctrl.sv:2]
+	Parameter N bound to: 32'sb00000000000000000000000000001000 
+	Parameter DRAIN_CYCLES bound to: 32'sb00000000000000000000000000000110 
+INFO: [Synth 8-6155] done synthesizing module 'tile_ctrl' (0#1) [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/tile_ctrl.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'a_tile_buffer' [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/a_tile_buffer.sv:2]
+	Parameter WIDTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter N bound to: 32'sb00000000000000000000000000001000 
+INFO: [Synth 8-6157] synthesizing module 'tile_buffer' [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/tile_buffer.sv:3]
+	Parameter WIDTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter DEPTH bound to: 32'sb00000000000000000000000000001000 
+INFO: [Synth 8-6155] done synthesizing module 'tile_buffer' (0#1) [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/tile_buffer.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'a_tile_buffer' (0#1) [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/a_tile_buffer.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'b_tile_buffer' [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/b_tile_buffer.sv:3]
+	Parameter WIDTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter N bound to: 32'sb00000000000000000000000000001000 
+INFO: [Synth 8-6155] done synthesizing module 'b_tile_buffer' (0#1) [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/b_tile_buffer.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'systolic_array' [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/systolic_array.sv:3]
+	Parameter N bound to: 32'sb00000000000000000000000000001000 
+INFO: [Synth 8-6157] synthesizing module 'shift_reg' [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+	Parameter WIDTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter DEPTH bound to: 32'sb00000000000000000000000000000000 
+INFO: [Synth 8-6155] done synthesizing module 'shift_reg' (0#1) [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'shift_reg__parameterized0' [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+	Parameter WIDTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter DEPTH bound to: 32'sb00000000000000000000000000000001 
+INFO: [Synth 8-6155] done synthesizing module 'shift_reg__parameterized0' (0#1) [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'shift_reg__parameterized1' [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+	Parameter WIDTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter DEPTH bound to: 32'sb00000000000000000000000000000010 
+INFO: [Synth 8-6155] done synthesizing module 'shift_reg__parameterized1' (0#1) [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'shift_reg__parameterized2' [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+	Parameter WIDTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter DEPTH bound to: 32'sb00000000000000000000000000000011 
+INFO: [Synth 8-6155] done synthesizing module 'shift_reg__parameterized2' (0#1) [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'shift_reg__parameterized3' [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+	Parameter WIDTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter DEPTH bound to: 32'sb00000000000000000000000000000100 
+INFO: [Synth 8-6155] done synthesizing module 'shift_reg__parameterized3' (0#1) [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'shift_reg__parameterized4' [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+	Parameter WIDTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter DEPTH bound to: 32'sb00000000000000000000000000000101 
+INFO: [Synth 8-6155] done synthesizing module 'shift_reg__parameterized4' (0#1) [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'shift_reg__parameterized5' [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+	Parameter WIDTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter DEPTH bound to: 32'sb00000000000000000000000000000110 
+INFO: [Synth 8-6155] done synthesizing module 'shift_reg__parameterized5' (0#1) [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'shift_reg__parameterized6' [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+	Parameter WIDTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter DEPTH bound to: 32'sb00000000000000000000000000000111 
+INFO: [Synth 8-6155] done synthesizing module 'shift_reg__parameterized6' (0#1) [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'pe' [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/pe.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'pe' (0#1) [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/pe.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'shift_reg__parameterized7' [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+	Parameter WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter DEPTH bound to: 32'sb00000000000000000000000000000111 
+INFO: [Synth 8-6155] done synthesizing module 'shift_reg__parameterized7' (0#1) [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'shift_reg__parameterized8' [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+	Parameter WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter DEPTH bound to: 32'sb00000000000000000000000000000110 
+INFO: [Synth 8-6155] done synthesizing module 'shift_reg__parameterized8' (0#1) [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'shift_reg__parameterized9' [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+	Parameter WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter DEPTH bound to: 32'sb00000000000000000000000000000101 
+INFO: [Synth 8-6155] done synthesizing module 'shift_reg__parameterized9' (0#1) [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'shift_reg__parameterized10' [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+	Parameter WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter DEPTH bound to: 32'sb00000000000000000000000000000100 
+INFO: [Synth 8-6155] done synthesizing module 'shift_reg__parameterized10' (0#1) [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'shift_reg__parameterized11' [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+	Parameter WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter DEPTH bound to: 32'sb00000000000000000000000000000011 
+INFO: [Synth 8-6155] done synthesizing module 'shift_reg__parameterized11' (0#1) [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'shift_reg__parameterized12' [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+	Parameter WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter DEPTH bound to: 32'sb00000000000000000000000000000010 
+INFO: [Synth 8-6155] done synthesizing module 'shift_reg__parameterized12' (0#1) [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'shift_reg__parameterized13' [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+	Parameter WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter DEPTH bound to: 32'sb00000000000000000000000000000001 
+INFO: [Synth 8-6155] done synthesizing module 'shift_reg__parameterized13' (0#1) [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'shift_reg__parameterized14' [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+	Parameter WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter DEPTH bound to: 32'sb00000000000000000000000000000000 
+INFO: [Synth 8-6155] done synthesizing module 'shift_reg__parameterized14' (0#1) [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'systolic_array' (0#1) [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/systolic_array.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'gemm_top' (0#1) [/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/gemm_top.sv:3]
+WARNING: [Synth 8-7129] Port clk in module shift_reg__parameterized14 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port rst in module shift_reg__parameterized14 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port clk in module shift_reg is either unconnected or has no load
+WARNING: [Synth 8-7129] Port rst in module shift_reg is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[1] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[0] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[31] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[30] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[29] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[28] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[27] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[26] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[25] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[24] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[23] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[22] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[21] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[20] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[19] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[18] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[17] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[16] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[15] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[14] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[13] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[12] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[11] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[10] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[9] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[8] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[7] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[6] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[5] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[4] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[3] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[2] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[1] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wstrb[3] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wstrb[2] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wstrb[1] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[1] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[0] in module axi_lite_ctrl is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2101.188 ; gain = 502.621 ; free physical = 825782 ; free virtual = 1163424
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 2119.000 ; gain = 520.434 ; free physical = 825772 ; free virtual = 1163414
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z020clg400-1
+INFO: [Device 21-403] Loading part xc7z020clg400-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 2127.004 ; gain = 528.438 ; free physical = 825770 ; free virtual = 1163412
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'w_state_reg' in module 'axi_lite_ctrl'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'tile_ctrl'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                  W_IDLE |                                0 |                               00
+                  W_RESP |                                1 |                               01
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'w_state_reg' using encoding 'sequential' in module 'axi_lite_ctrl'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                  S_IDLE |                            00001 |                              000
+          S_LOAD_WEIGHTS |                            00010 |                              001
+                S_STREAM |                            00100 |                              010
+                 S_DRAIN |                            01000 |                              011
+                  S_DONE |                            10000 |                              100
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'one-hot' in module 'tile_ctrl'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 2140.949 ; gain = 542.383 ; free physical = 825757 ; free virtual = 1163402
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input    6 Bit       Adders := 1     
+	   2 Input    4 Bit       Adders := 2     
+	   2 Input    3 Bit       Adders := 1     
++---Registers : 
+	               32 Bit    Registers := 93    
+	               16 Bit    Registers := 228   
+	                4 Bit    Registers := 2     
+	                2 Bit    Registers := 2     
+	                1 Bit    Registers := 6     
++---RAMs : 
+	              128 Bit	(8 X 16 bit)          RAMs := 8     
++---Muxes : 
+	   2 Input   32 Bit        Muxes := 3     
+	   2 Input   16 Bit        Muxes := 8     
+	   5 Input    5 Bit        Muxes := 1     
+	   2 Input    5 Bit        Muxes := 3     
+	   2 Input    3 Bit        Muxes := 2     
+	   4 Input    3 Bit        Muxes := 1     
+	   5 Input    3 Bit        Muxes := 2     
+	   2 Input    2 Bit        Muxes := 1     
+	   2 Input    1 Bit        Muxes := 31    
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 220 (col length:60)
+BRAMs: 280 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+DSP Report: Generating DSP array/row[0].col[0].pe_inst/c_out_reg, operation Mode is: (A*B2)'.
+DSP Report: register array/row[0].col[0].pe_inst/weight_reg is absorbed into DSP array/row[0].col[0].pe_inst/c_out_reg.
+DSP Report: register array/row[0].col[0].pe_inst/c_out_reg is absorbed into DSP array/row[0].col[0].pe_inst/c_out_reg.
+DSP Report: operator array/row[0].col[0].pe_inst/c_out0 is absorbed into DSP array/row[0].col[0].pe_inst/c_out_reg.
+DSP Report: operator array/row[0].col[0].pe_inst/c_out1 is absorbed into DSP array/row[0].col[0].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[1].col[0].pe_inst/c_out_reg, operation Mode is: (PCIN+A2*B2)'.
+DSP Report: register array/row[1].col[0].pe_inst/weight_reg is absorbed into DSP array/row[1].col[0].pe_inst/c_out_reg.
+DSP Report: register array/askew_row[1].row_skew/shift.regs_reg[0] is absorbed into DSP array/row[1].col[0].pe_inst/c_out_reg.
+DSP Report: register array/row[1].col[0].pe_inst/c_out_reg is absorbed into DSP array/row[1].col[0].pe_inst/c_out_reg.
+DSP Report: operator array/row[1].col[0].pe_inst/c_out0 is absorbed into DSP array/row[1].col[0].pe_inst/c_out_reg.
+DSP Report: operator array/row[1].col[0].pe_inst/c_out1 is absorbed into DSP array/row[1].col[0].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[2].col[0].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[2].col[0].pe_inst/weight_reg is absorbed into DSP array/row[2].col[0].pe_inst/c_out_reg.
+DSP Report: register array/askew_row[2].row_skew/shift.regs_reg[0] is absorbed into DSP array/row[2].col[0].pe_inst/c_out_reg.
+DSP Report: register array/askew_row[2].row_skew/shift.regs_reg[1] is absorbed into DSP array/row[2].col[0].pe_inst/c_out_reg.
+DSP Report: register array/row[2].col[0].pe_inst/c_out_reg is absorbed into DSP array/row[2].col[0].pe_inst/c_out_reg.
+DSP Report: operator array/row[2].col[0].pe_inst/c_out0 is absorbed into DSP array/row[2].col[0].pe_inst/c_out_reg.
+DSP Report: operator array/row[2].col[0].pe_inst/c_out1 is absorbed into DSP array/row[2].col[0].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[3].col[0].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[3].col[0].pe_inst/weight_reg is absorbed into DSP array/row[3].col[0].pe_inst/c_out_reg.
+DSP Report: register array/askew_row[3].row_skew/shift.regs_reg[1] is absorbed into DSP array/row[3].col[0].pe_inst/c_out_reg.
+DSP Report: register array/askew_row[3].row_skew/shift.regs_reg[2] is absorbed into DSP array/row[3].col[0].pe_inst/c_out_reg.
+DSP Report: register array/row[3].col[0].pe_inst/c_out_reg is absorbed into DSP array/row[3].col[0].pe_inst/c_out_reg.
+DSP Report: operator array/row[3].col[0].pe_inst/c_out0 is absorbed into DSP array/row[3].col[0].pe_inst/c_out_reg.
+DSP Report: operator array/row[3].col[0].pe_inst/c_out1 is absorbed into DSP array/row[3].col[0].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[4].col[0].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[4].col[0].pe_inst/weight_reg is absorbed into DSP array/row[4].col[0].pe_inst/c_out_reg.
+DSP Report: register array/askew_row[4].row_skew/shift.regs_reg[2] is absorbed into DSP array/row[4].col[0].pe_inst/c_out_reg.
+DSP Report: register array/askew_row[4].row_skew/shift.regs_reg[3] is absorbed into DSP array/row[4].col[0].pe_inst/c_out_reg.
+DSP Report: register array/row[4].col[0].pe_inst/c_out_reg is absorbed into DSP array/row[4].col[0].pe_inst/c_out_reg.
+DSP Report: operator array/row[4].col[0].pe_inst/c_out0 is absorbed into DSP array/row[4].col[0].pe_inst/c_out_reg.
+DSP Report: operator array/row[4].col[0].pe_inst/c_out1 is absorbed into DSP array/row[4].col[0].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[5].col[0].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[5].col[0].pe_inst/weight_reg is absorbed into DSP array/row[5].col[0].pe_inst/c_out_reg.
+DSP Report: register array/askew_row[5].row_skew/shift.regs_reg[3] is absorbed into DSP array/row[5].col[0].pe_inst/c_out_reg.
+DSP Report: register array/askew_row[5].row_skew/shift.regs_reg[4] is absorbed into DSP array/row[5].col[0].pe_inst/c_out_reg.
+DSP Report: register array/row[5].col[0].pe_inst/c_out_reg is absorbed into DSP array/row[5].col[0].pe_inst/c_out_reg.
+DSP Report: operator array/row[5].col[0].pe_inst/c_out0 is absorbed into DSP array/row[5].col[0].pe_inst/c_out_reg.
+DSP Report: operator array/row[5].col[0].pe_inst/c_out1 is absorbed into DSP array/row[5].col[0].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[6].col[0].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[6].col[0].pe_inst/weight_reg is absorbed into DSP array/row[6].col[0].pe_inst/c_out_reg.
+DSP Report: register array/askew_row[6].row_skew/shift.regs_reg[4] is absorbed into DSP array/row[6].col[0].pe_inst/c_out_reg.
+DSP Report: register array/askew_row[6].row_skew/shift.regs_reg[5] is absorbed into DSP array/row[6].col[0].pe_inst/c_out_reg.
+DSP Report: register array/row[6].col[0].pe_inst/c_out_reg is absorbed into DSP array/row[6].col[0].pe_inst/c_out_reg.
+DSP Report: operator array/row[6].col[0].pe_inst/c_out0 is absorbed into DSP array/row[6].col[0].pe_inst/c_out_reg.
+DSP Report: operator array/row[6].col[0].pe_inst/c_out1 is absorbed into DSP array/row[6].col[0].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[7].col[0].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[7].col[0].pe_inst/weight_reg is absorbed into DSP array/row[7].col[0].pe_inst/c_out_reg.
+DSP Report: register array/askew_row[7].row_skew/shift.regs_reg[5] is absorbed into DSP array/row[7].col[0].pe_inst/c_out_reg.
+DSP Report: register array/askew_row[7].row_skew/shift.regs_reg[6] is absorbed into DSP array/row[7].col[0].pe_inst/c_out_reg.
+DSP Report: register array/row[7].col[0].pe_inst/c_out_reg is absorbed into DSP array/row[7].col[0].pe_inst/c_out_reg.
+DSP Report: operator array/row[7].col[0].pe_inst/c_out0 is absorbed into DSP array/row[7].col[0].pe_inst/c_out_reg.
+DSP Report: operator array/row[7].col[0].pe_inst/c_out1 is absorbed into DSP array/row[7].col[0].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[0].col[1].pe_inst/c_out_reg, operation Mode is: (A2*B2)'.
+DSP Report: register array/row[0].col[1].pe_inst/weight_reg is absorbed into DSP array/row[0].col[1].pe_inst/c_out_reg.
+DSP Report: register array/row[0].col[0].pe_inst/a_out_reg is absorbed into DSP array/row[0].col[1].pe_inst/c_out_reg.
+DSP Report: register array/row[0].col[1].pe_inst/c_out_reg is absorbed into DSP array/row[0].col[1].pe_inst/c_out_reg.
+DSP Report: operator array/row[0].col[1].pe_inst/c_out0 is absorbed into DSP array/row[0].col[1].pe_inst/c_out_reg.
+DSP Report: operator array/row[0].col[1].pe_inst/c_out1 is absorbed into DSP array/row[0].col[1].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[1].col[1].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[1].col[1].pe_inst/weight_reg is absorbed into DSP array/row[1].col[1].pe_inst/c_out_reg.
+DSP Report: register array/askew_row[1].row_skew/shift.regs_reg[0] is absorbed into DSP array/row[1].col[1].pe_inst/c_out_reg.
+DSP Report: register array/row[1].col[0].pe_inst/a_out_reg is absorbed into DSP array/row[1].col[1].pe_inst/c_out_reg.
+DSP Report: register array/row[1].col[1].pe_inst/c_out_reg is absorbed into DSP array/row[1].col[1].pe_inst/c_out_reg.
+DSP Report: operator array/row[1].col[1].pe_inst/c_out0 is absorbed into DSP array/row[1].col[1].pe_inst/c_out_reg.
+DSP Report: operator array/row[1].col[1].pe_inst/c_out1 is absorbed into DSP array/row[1].col[1].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[2].col[1].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[2].col[1].pe_inst/weight_reg is absorbed into DSP array/row[2].col[1].pe_inst/c_out_reg.
+DSP Report: register array/askew_row[2].row_skew/shift.regs_reg[1] is absorbed into DSP array/row[2].col[1].pe_inst/c_out_reg.
+DSP Report: register array/row[2].col[0].pe_inst/a_out_reg is absorbed into DSP array/row[2].col[1].pe_inst/c_out_reg.
+DSP Report: register array/row[2].col[1].pe_inst/c_out_reg is absorbed into DSP array/row[2].col[1].pe_inst/c_out_reg.
+DSP Report: operator array/row[2].col[1].pe_inst/c_out0 is absorbed into DSP array/row[2].col[1].pe_inst/c_out_reg.
+DSP Report: operator array/row[2].col[1].pe_inst/c_out1 is absorbed into DSP array/row[2].col[1].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[3].col[1].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[3].col[1].pe_inst/weight_reg is absorbed into DSP array/row[3].col[1].pe_inst/c_out_reg.
+DSP Report: register array/askew_row[3].row_skew/shift.regs_reg[2] is absorbed into DSP array/row[3].col[1].pe_inst/c_out_reg.
+DSP Report: register array/row[3].col[0].pe_inst/a_out_reg is absorbed into DSP array/row[3].col[1].pe_inst/c_out_reg.
+DSP Report: register array/row[3].col[1].pe_inst/c_out_reg is absorbed into DSP array/row[3].col[1].pe_inst/c_out_reg.
+DSP Report: operator array/row[3].col[1].pe_inst/c_out0 is absorbed into DSP array/row[3].col[1].pe_inst/c_out_reg.
+DSP Report: operator array/row[3].col[1].pe_inst/c_out1 is absorbed into DSP array/row[3].col[1].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[4].col[1].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[4].col[1].pe_inst/weight_reg is absorbed into DSP array/row[4].col[1].pe_inst/c_out_reg.
+DSP Report: register array/askew_row[4].row_skew/shift.regs_reg[3] is absorbed into DSP array/row[4].col[1].pe_inst/c_out_reg.
+DSP Report: register array/row[4].col[0].pe_inst/a_out_reg is absorbed into DSP array/row[4].col[1].pe_inst/c_out_reg.
+DSP Report: register array/row[4].col[1].pe_inst/c_out_reg is absorbed into DSP array/row[4].col[1].pe_inst/c_out_reg.
+DSP Report: operator array/row[4].col[1].pe_inst/c_out0 is absorbed into DSP array/row[4].col[1].pe_inst/c_out_reg.
+DSP Report: operator array/row[4].col[1].pe_inst/c_out1 is absorbed into DSP array/row[4].col[1].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[5].col[1].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[5].col[1].pe_inst/weight_reg is absorbed into DSP array/row[5].col[1].pe_inst/c_out_reg.
+DSP Report: register array/askew_row[5].row_skew/shift.regs_reg[4] is absorbed into DSP array/row[5].col[1].pe_inst/c_out_reg.
+DSP Report: register array/row[5].col[0].pe_inst/a_out_reg is absorbed into DSP array/row[5].col[1].pe_inst/c_out_reg.
+DSP Report: register array/row[5].col[1].pe_inst/c_out_reg is absorbed into DSP array/row[5].col[1].pe_inst/c_out_reg.
+DSP Report: operator array/row[5].col[1].pe_inst/c_out0 is absorbed into DSP array/row[5].col[1].pe_inst/c_out_reg.
+DSP Report: operator array/row[5].col[1].pe_inst/c_out1 is absorbed into DSP array/row[5].col[1].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[6].col[1].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[6].col[1].pe_inst/weight_reg is absorbed into DSP array/row[6].col[1].pe_inst/c_out_reg.
+DSP Report: register array/askew_row[6].row_skew/shift.regs_reg[5] is absorbed into DSP array/row[6].col[1].pe_inst/c_out_reg.
+DSP Report: register array/row[6].col[0].pe_inst/a_out_reg is absorbed into DSP array/row[6].col[1].pe_inst/c_out_reg.
+DSP Report: register array/row[6].col[1].pe_inst/c_out_reg is absorbed into DSP array/row[6].col[1].pe_inst/c_out_reg.
+DSP Report: operator array/row[6].col[1].pe_inst/c_out0 is absorbed into DSP array/row[6].col[1].pe_inst/c_out_reg.
+DSP Report: operator array/row[6].col[1].pe_inst/c_out1 is absorbed into DSP array/row[6].col[1].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[7].col[1].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[7].col[1].pe_inst/weight_reg is absorbed into DSP array/row[7].col[1].pe_inst/c_out_reg.
+DSP Report: register array/askew_row[7].row_skew/shift.regs_reg[6] is absorbed into DSP array/row[7].col[1].pe_inst/c_out_reg.
+DSP Report: register array/row[7].col[0].pe_inst/a_out_reg is absorbed into DSP array/row[7].col[1].pe_inst/c_out_reg.
+DSP Report: register array/row[7].col[1].pe_inst/c_out_reg is absorbed into DSP array/row[7].col[1].pe_inst/c_out_reg.
+DSP Report: operator array/row[7].col[1].pe_inst/c_out0 is absorbed into DSP array/row[7].col[1].pe_inst/c_out_reg.
+DSP Report: operator array/row[7].col[1].pe_inst/c_out1 is absorbed into DSP array/row[7].col[1].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[0].col[2].pe_inst/c_out_reg, operation Mode is: (A''*B2)'.
+DSP Report: register array/row[0].col[2].pe_inst/weight_reg is absorbed into DSP array/row[0].col[2].pe_inst/c_out_reg.
+DSP Report: register array/row[0].col[0].pe_inst/a_out_reg is absorbed into DSP array/row[0].col[2].pe_inst/c_out_reg.
+DSP Report: register array/row[0].col[1].pe_inst/a_out_reg is absorbed into DSP array/row[0].col[2].pe_inst/c_out_reg.
+DSP Report: register array/row[0].col[2].pe_inst/c_out_reg is absorbed into DSP array/row[0].col[2].pe_inst/c_out_reg.
+DSP Report: operator array/row[0].col[2].pe_inst/c_out0 is absorbed into DSP array/row[0].col[2].pe_inst/c_out_reg.
+DSP Report: operator array/row[0].col[2].pe_inst/c_out1 is absorbed into DSP array/row[0].col[2].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[1].col[2].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[1].col[2].pe_inst/weight_reg is absorbed into DSP array/row[1].col[2].pe_inst/c_out_reg.
+DSP Report: register array/row[1].col[0].pe_inst/a_out_reg is absorbed into DSP array/row[1].col[2].pe_inst/c_out_reg.
+DSP Report: register array/row[1].col[1].pe_inst/a_out_reg is absorbed into DSP array/row[1].col[2].pe_inst/c_out_reg.
+DSP Report: register array/row[1].col[2].pe_inst/c_out_reg is absorbed into DSP array/row[1].col[2].pe_inst/c_out_reg.
+DSP Report: operator array/row[1].col[2].pe_inst/c_out0 is absorbed into DSP array/row[1].col[2].pe_inst/c_out_reg.
+DSP Report: operator array/row[1].col[2].pe_inst/c_out1 is absorbed into DSP array/row[1].col[2].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[2].col[2].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[2].col[2].pe_inst/weight_reg is absorbed into DSP array/row[2].col[2].pe_inst/c_out_reg.
+DSP Report: register array/row[2].col[0].pe_inst/a_out_reg is absorbed into DSP array/row[2].col[2].pe_inst/c_out_reg.
+DSP Report: register array/row[2].col[1].pe_inst/a_out_reg is absorbed into DSP array/row[2].col[2].pe_inst/c_out_reg.
+DSP Report: register array/row[2].col[2].pe_inst/c_out_reg is absorbed into DSP array/row[2].col[2].pe_inst/c_out_reg.
+DSP Report: operator array/row[2].col[2].pe_inst/c_out0 is absorbed into DSP array/row[2].col[2].pe_inst/c_out_reg.
+DSP Report: operator array/row[2].col[2].pe_inst/c_out1 is absorbed into DSP array/row[2].col[2].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[3].col[2].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[3].col[2].pe_inst/weight_reg is absorbed into DSP array/row[3].col[2].pe_inst/c_out_reg.
+DSP Report: register array/row[3].col[0].pe_inst/a_out_reg is absorbed into DSP array/row[3].col[2].pe_inst/c_out_reg.
+DSP Report: register array/row[3].col[1].pe_inst/a_out_reg is absorbed into DSP array/row[3].col[2].pe_inst/c_out_reg.
+DSP Report: register array/row[3].col[2].pe_inst/c_out_reg is absorbed into DSP array/row[3].col[2].pe_inst/c_out_reg.
+DSP Report: operator array/row[3].col[2].pe_inst/c_out0 is absorbed into DSP array/row[3].col[2].pe_inst/c_out_reg.
+DSP Report: operator array/row[3].col[2].pe_inst/c_out1 is absorbed into DSP array/row[3].col[2].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[4].col[2].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[4].col[2].pe_inst/weight_reg is absorbed into DSP array/row[4].col[2].pe_inst/c_out_reg.
+DSP Report: register array/row[4].col[0].pe_inst/a_out_reg is absorbed into DSP array/row[4].col[2].pe_inst/c_out_reg.
+DSP Report: register array/row[4].col[1].pe_inst/a_out_reg is absorbed into DSP array/row[4].col[2].pe_inst/c_out_reg.
+DSP Report: register array/row[4].col[2].pe_inst/c_out_reg is absorbed into DSP array/row[4].col[2].pe_inst/c_out_reg.
+DSP Report: operator array/row[4].col[2].pe_inst/c_out0 is absorbed into DSP array/row[4].col[2].pe_inst/c_out_reg.
+DSP Report: operator array/row[4].col[2].pe_inst/c_out1 is absorbed into DSP array/row[4].col[2].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[5].col[2].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[5].col[2].pe_inst/weight_reg is absorbed into DSP array/row[5].col[2].pe_inst/c_out_reg.
+DSP Report: register array/row[5].col[0].pe_inst/a_out_reg is absorbed into DSP array/row[5].col[2].pe_inst/c_out_reg.
+DSP Report: register array/row[5].col[1].pe_inst/a_out_reg is absorbed into DSP array/row[5].col[2].pe_inst/c_out_reg.
+DSP Report: register array/row[5].col[2].pe_inst/c_out_reg is absorbed into DSP array/row[5].col[2].pe_inst/c_out_reg.
+DSP Report: operator array/row[5].col[2].pe_inst/c_out0 is absorbed into DSP array/row[5].col[2].pe_inst/c_out_reg.
+DSP Report: operator array/row[5].col[2].pe_inst/c_out1 is absorbed into DSP array/row[5].col[2].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[6].col[2].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[6].col[2].pe_inst/weight_reg is absorbed into DSP array/row[6].col[2].pe_inst/c_out_reg.
+DSP Report: register array/row[6].col[0].pe_inst/a_out_reg is absorbed into DSP array/row[6].col[2].pe_inst/c_out_reg.
+DSP Report: register array/row[6].col[1].pe_inst/a_out_reg is absorbed into DSP array/row[6].col[2].pe_inst/c_out_reg.
+DSP Report: register array/row[6].col[2].pe_inst/c_out_reg is absorbed into DSP array/row[6].col[2].pe_inst/c_out_reg.
+DSP Report: operator array/row[6].col[2].pe_inst/c_out0 is absorbed into DSP array/row[6].col[2].pe_inst/c_out_reg.
+DSP Report: operator array/row[6].col[2].pe_inst/c_out1 is absorbed into DSP array/row[6].col[2].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[7].col[2].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[7].col[2].pe_inst/weight_reg is absorbed into DSP array/row[7].col[2].pe_inst/c_out_reg.
+DSP Report: register array/row[7].col[0].pe_inst/a_out_reg is absorbed into DSP array/row[7].col[2].pe_inst/c_out_reg.
+DSP Report: register array/row[7].col[1].pe_inst/a_out_reg is absorbed into DSP array/row[7].col[2].pe_inst/c_out_reg.
+DSP Report: register array/row[7].col[2].pe_inst/c_out_reg is absorbed into DSP array/row[7].col[2].pe_inst/c_out_reg.
+DSP Report: operator array/row[7].col[2].pe_inst/c_out0 is absorbed into DSP array/row[7].col[2].pe_inst/c_out_reg.
+DSP Report: operator array/row[7].col[2].pe_inst/c_out1 is absorbed into DSP array/row[7].col[2].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[0].col[3].pe_inst/c_out_reg, operation Mode is: (A''*B2)'.
+DSP Report: register array/row[0].col[3].pe_inst/weight_reg is absorbed into DSP array/row[0].col[3].pe_inst/c_out_reg.
+DSP Report: register array/row[0].col[1].pe_inst/a_out_reg is absorbed into DSP array/row[0].col[3].pe_inst/c_out_reg.
+DSP Report: register array/row[0].col[2].pe_inst/a_out_reg is absorbed into DSP array/row[0].col[3].pe_inst/c_out_reg.
+DSP Report: register array/row[0].col[3].pe_inst/c_out_reg is absorbed into DSP array/row[0].col[3].pe_inst/c_out_reg.
+DSP Report: operator array/row[0].col[3].pe_inst/c_out0 is absorbed into DSP array/row[0].col[3].pe_inst/c_out_reg.
+DSP Report: operator array/row[0].col[3].pe_inst/c_out1 is absorbed into DSP array/row[0].col[3].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[1].col[3].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[1].col[3].pe_inst/weight_reg is absorbed into DSP array/row[1].col[3].pe_inst/c_out_reg.
+DSP Report: register array/row[1].col[1].pe_inst/a_out_reg is absorbed into DSP array/row[1].col[3].pe_inst/c_out_reg.
+DSP Report: register array/row[1].col[2].pe_inst/a_out_reg is absorbed into DSP array/row[1].col[3].pe_inst/c_out_reg.
+DSP Report: register array/row[1].col[3].pe_inst/c_out_reg is absorbed into DSP array/row[1].col[3].pe_inst/c_out_reg.
+DSP Report: operator array/row[1].col[3].pe_inst/c_out0 is absorbed into DSP array/row[1].col[3].pe_inst/c_out_reg.
+DSP Report: operator array/row[1].col[3].pe_inst/c_out1 is absorbed into DSP array/row[1].col[3].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[2].col[3].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[2].col[3].pe_inst/weight_reg is absorbed into DSP array/row[2].col[3].pe_inst/c_out_reg.
+DSP Report: register array/row[2].col[1].pe_inst/a_out_reg is absorbed into DSP array/row[2].col[3].pe_inst/c_out_reg.
+DSP Report: register array/row[2].col[2].pe_inst/a_out_reg is absorbed into DSP array/row[2].col[3].pe_inst/c_out_reg.
+DSP Report: register array/row[2].col[3].pe_inst/c_out_reg is absorbed into DSP array/row[2].col[3].pe_inst/c_out_reg.
+DSP Report: operator array/row[2].col[3].pe_inst/c_out0 is absorbed into DSP array/row[2].col[3].pe_inst/c_out_reg.
+DSP Report: operator array/row[2].col[3].pe_inst/c_out1 is absorbed into DSP array/row[2].col[3].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[3].col[3].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[3].col[3].pe_inst/weight_reg is absorbed into DSP array/row[3].col[3].pe_inst/c_out_reg.
+DSP Report: register array/row[3].col[1].pe_inst/a_out_reg is absorbed into DSP array/row[3].col[3].pe_inst/c_out_reg.
+DSP Report: register array/row[3].col[2].pe_inst/a_out_reg is absorbed into DSP array/row[3].col[3].pe_inst/c_out_reg.
+DSP Report: register array/row[3].col[3].pe_inst/c_out_reg is absorbed into DSP array/row[3].col[3].pe_inst/c_out_reg.
+DSP Report: operator array/row[3].col[3].pe_inst/c_out0 is absorbed into DSP array/row[3].col[3].pe_inst/c_out_reg.
+DSP Report: operator array/row[3].col[3].pe_inst/c_out1 is absorbed into DSP array/row[3].col[3].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[4].col[3].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[4].col[3].pe_inst/weight_reg is absorbed into DSP array/row[4].col[3].pe_inst/c_out_reg.
+DSP Report: register array/row[4].col[1].pe_inst/a_out_reg is absorbed into DSP array/row[4].col[3].pe_inst/c_out_reg.
+DSP Report: register array/row[4].col[2].pe_inst/a_out_reg is absorbed into DSP array/row[4].col[3].pe_inst/c_out_reg.
+DSP Report: register array/row[4].col[3].pe_inst/c_out_reg is absorbed into DSP array/row[4].col[3].pe_inst/c_out_reg.
+DSP Report: operator array/row[4].col[3].pe_inst/c_out0 is absorbed into DSP array/row[4].col[3].pe_inst/c_out_reg.
+DSP Report: operator array/row[4].col[3].pe_inst/c_out1 is absorbed into DSP array/row[4].col[3].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[5].col[3].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[5].col[3].pe_inst/weight_reg is absorbed into DSP array/row[5].col[3].pe_inst/c_out_reg.
+DSP Report: register array/row[5].col[1].pe_inst/a_out_reg is absorbed into DSP array/row[5].col[3].pe_inst/c_out_reg.
+DSP Report: register array/row[5].col[2].pe_inst/a_out_reg is absorbed into DSP array/row[5].col[3].pe_inst/c_out_reg.
+DSP Report: register array/row[5].col[3].pe_inst/c_out_reg is absorbed into DSP array/row[5].col[3].pe_inst/c_out_reg.
+DSP Report: operator array/row[5].col[3].pe_inst/c_out0 is absorbed into DSP array/row[5].col[3].pe_inst/c_out_reg.
+DSP Report: operator array/row[5].col[3].pe_inst/c_out1 is absorbed into DSP array/row[5].col[3].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[6].col[3].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[6].col[3].pe_inst/weight_reg is absorbed into DSP array/row[6].col[3].pe_inst/c_out_reg.
+DSP Report: register array/row[6].col[1].pe_inst/a_out_reg is absorbed into DSP array/row[6].col[3].pe_inst/c_out_reg.
+DSP Report: register array/row[6].col[2].pe_inst/a_out_reg is absorbed into DSP array/row[6].col[3].pe_inst/c_out_reg.
+DSP Report: register array/row[6].col[3].pe_inst/c_out_reg is absorbed into DSP array/row[6].col[3].pe_inst/c_out_reg.
+DSP Report: operator array/row[6].col[3].pe_inst/c_out0 is absorbed into DSP array/row[6].col[3].pe_inst/c_out_reg.
+DSP Report: operator array/row[6].col[3].pe_inst/c_out1 is absorbed into DSP array/row[6].col[3].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[7].col[3].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[7].col[3].pe_inst/weight_reg is absorbed into DSP array/row[7].col[3].pe_inst/c_out_reg.
+DSP Report: register array/row[7].col[1].pe_inst/a_out_reg is absorbed into DSP array/row[7].col[3].pe_inst/c_out_reg.
+DSP Report: register array/row[7].col[2].pe_inst/a_out_reg is absorbed into DSP array/row[7].col[3].pe_inst/c_out_reg.
+DSP Report: register array/row[7].col[3].pe_inst/c_out_reg is absorbed into DSP array/row[7].col[3].pe_inst/c_out_reg.
+DSP Report: operator array/row[7].col[3].pe_inst/c_out0 is absorbed into DSP array/row[7].col[3].pe_inst/c_out_reg.
+DSP Report: operator array/row[7].col[3].pe_inst/c_out1 is absorbed into DSP array/row[7].col[3].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[0].col[4].pe_inst/c_out_reg, operation Mode is: (A''*B2)'.
+DSP Report: register array/row[0].col[4].pe_inst/weight_reg is absorbed into DSP array/row[0].col[4].pe_inst/c_out_reg.
+DSP Report: register array/row[0].col[2].pe_inst/a_out_reg is absorbed into DSP array/row[0].col[4].pe_inst/c_out_reg.
+DSP Report: register array/row[0].col[3].pe_inst/a_out_reg is absorbed into DSP array/row[0].col[4].pe_inst/c_out_reg.
+DSP Report: register array/row[0].col[4].pe_inst/c_out_reg is absorbed into DSP array/row[0].col[4].pe_inst/c_out_reg.
+DSP Report: operator array/row[0].col[4].pe_inst/c_out0 is absorbed into DSP array/row[0].col[4].pe_inst/c_out_reg.
+DSP Report: operator array/row[0].col[4].pe_inst/c_out1 is absorbed into DSP array/row[0].col[4].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[1].col[4].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[1].col[4].pe_inst/weight_reg is absorbed into DSP array/row[1].col[4].pe_inst/c_out_reg.
+DSP Report: register array/row[1].col[2].pe_inst/a_out_reg is absorbed into DSP array/row[1].col[4].pe_inst/c_out_reg.
+DSP Report: register array/row[1].col[3].pe_inst/a_out_reg is absorbed into DSP array/row[1].col[4].pe_inst/c_out_reg.
+DSP Report: register array/row[1].col[4].pe_inst/c_out_reg is absorbed into DSP array/row[1].col[4].pe_inst/c_out_reg.
+DSP Report: operator array/row[1].col[4].pe_inst/c_out0 is absorbed into DSP array/row[1].col[4].pe_inst/c_out_reg.
+DSP Report: operator array/row[1].col[4].pe_inst/c_out1 is absorbed into DSP array/row[1].col[4].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[2].col[4].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[2].col[4].pe_inst/weight_reg is absorbed into DSP array/row[2].col[4].pe_inst/c_out_reg.
+DSP Report: register array/row[2].col[2].pe_inst/a_out_reg is absorbed into DSP array/row[2].col[4].pe_inst/c_out_reg.
+DSP Report: register array/row[2].col[3].pe_inst/a_out_reg is absorbed into DSP array/row[2].col[4].pe_inst/c_out_reg.
+DSP Report: register array/row[2].col[4].pe_inst/c_out_reg is absorbed into DSP array/row[2].col[4].pe_inst/c_out_reg.
+DSP Report: operator array/row[2].col[4].pe_inst/c_out0 is absorbed into DSP array/row[2].col[4].pe_inst/c_out_reg.
+DSP Report: operator array/row[2].col[4].pe_inst/c_out1 is absorbed into DSP array/row[2].col[4].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[3].col[4].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[3].col[4].pe_inst/weight_reg is absorbed into DSP array/row[3].col[4].pe_inst/c_out_reg.
+DSP Report: register array/row[3].col[2].pe_inst/a_out_reg is absorbed into DSP array/row[3].col[4].pe_inst/c_out_reg.
+DSP Report: register array/row[3].col[3].pe_inst/a_out_reg is absorbed into DSP array/row[3].col[4].pe_inst/c_out_reg.
+DSP Report: register array/row[3].col[4].pe_inst/c_out_reg is absorbed into DSP array/row[3].col[4].pe_inst/c_out_reg.
+DSP Report: operator array/row[3].col[4].pe_inst/c_out0 is absorbed into DSP array/row[3].col[4].pe_inst/c_out_reg.
+DSP Report: operator array/row[3].col[4].pe_inst/c_out1 is absorbed into DSP array/row[3].col[4].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[4].col[4].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[4].col[4].pe_inst/weight_reg is absorbed into DSP array/row[4].col[4].pe_inst/c_out_reg.
+DSP Report: register array/row[4].col[2].pe_inst/a_out_reg is absorbed into DSP array/row[4].col[4].pe_inst/c_out_reg.
+DSP Report: register array/row[4].col[3].pe_inst/a_out_reg is absorbed into DSP array/row[4].col[4].pe_inst/c_out_reg.
+DSP Report: register array/row[4].col[4].pe_inst/c_out_reg is absorbed into DSP array/row[4].col[4].pe_inst/c_out_reg.
+DSP Report: operator array/row[4].col[4].pe_inst/c_out0 is absorbed into DSP array/row[4].col[4].pe_inst/c_out_reg.
+DSP Report: operator array/row[4].col[4].pe_inst/c_out1 is absorbed into DSP array/row[4].col[4].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[5].col[4].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[5].col[4].pe_inst/weight_reg is absorbed into DSP array/row[5].col[4].pe_inst/c_out_reg.
+DSP Report: register array/row[5].col[2].pe_inst/a_out_reg is absorbed into DSP array/row[5].col[4].pe_inst/c_out_reg.
+DSP Report: register array/row[5].col[3].pe_inst/a_out_reg is absorbed into DSP array/row[5].col[4].pe_inst/c_out_reg.
+DSP Report: register array/row[5].col[4].pe_inst/c_out_reg is absorbed into DSP array/row[5].col[4].pe_inst/c_out_reg.
+DSP Report: operator array/row[5].col[4].pe_inst/c_out0 is absorbed into DSP array/row[5].col[4].pe_inst/c_out_reg.
+DSP Report: operator array/row[5].col[4].pe_inst/c_out1 is absorbed into DSP array/row[5].col[4].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[6].col[4].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[6].col[4].pe_inst/weight_reg is absorbed into DSP array/row[6].col[4].pe_inst/c_out_reg.
+DSP Report: register array/row[6].col[2].pe_inst/a_out_reg is absorbed into DSP array/row[6].col[4].pe_inst/c_out_reg.
+DSP Report: register array/row[6].col[3].pe_inst/a_out_reg is absorbed into DSP array/row[6].col[4].pe_inst/c_out_reg.
+DSP Report: register array/row[6].col[4].pe_inst/c_out_reg is absorbed into DSP array/row[6].col[4].pe_inst/c_out_reg.
+DSP Report: operator array/row[6].col[4].pe_inst/c_out0 is absorbed into DSP array/row[6].col[4].pe_inst/c_out_reg.
+DSP Report: operator array/row[6].col[4].pe_inst/c_out1 is absorbed into DSP array/row[6].col[4].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[7].col[4].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[7].col[4].pe_inst/weight_reg is absorbed into DSP array/row[7].col[4].pe_inst/c_out_reg.
+DSP Report: register array/row[7].col[2].pe_inst/a_out_reg is absorbed into DSP array/row[7].col[4].pe_inst/c_out_reg.
+DSP Report: register array/row[7].col[3].pe_inst/a_out_reg is absorbed into DSP array/row[7].col[4].pe_inst/c_out_reg.
+DSP Report: register array/row[7].col[4].pe_inst/c_out_reg is absorbed into DSP array/row[7].col[4].pe_inst/c_out_reg.
+DSP Report: operator array/row[7].col[4].pe_inst/c_out0 is absorbed into DSP array/row[7].col[4].pe_inst/c_out_reg.
+DSP Report: operator array/row[7].col[4].pe_inst/c_out1 is absorbed into DSP array/row[7].col[4].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[0].col[5].pe_inst/c_out_reg, operation Mode is: (A''*B2)'.
+DSP Report: register array/row[0].col[5].pe_inst/weight_reg is absorbed into DSP array/row[0].col[5].pe_inst/c_out_reg.
+DSP Report: register array/row[0].col[3].pe_inst/a_out_reg is absorbed into DSP array/row[0].col[5].pe_inst/c_out_reg.
+DSP Report: register array/row[0].col[4].pe_inst/a_out_reg is absorbed into DSP array/row[0].col[5].pe_inst/c_out_reg.
+DSP Report: register array/row[0].col[5].pe_inst/c_out_reg is absorbed into DSP array/row[0].col[5].pe_inst/c_out_reg.
+DSP Report: operator array/row[0].col[5].pe_inst/c_out0 is absorbed into DSP array/row[0].col[5].pe_inst/c_out_reg.
+DSP Report: operator array/row[0].col[5].pe_inst/c_out1 is absorbed into DSP array/row[0].col[5].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[1].col[5].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[1].col[5].pe_inst/weight_reg is absorbed into DSP array/row[1].col[5].pe_inst/c_out_reg.
+DSP Report: register array/row[1].col[3].pe_inst/a_out_reg is absorbed into DSP array/row[1].col[5].pe_inst/c_out_reg.
+DSP Report: register array/row[1].col[4].pe_inst/a_out_reg is absorbed into DSP array/row[1].col[5].pe_inst/c_out_reg.
+DSP Report: register array/row[1].col[5].pe_inst/c_out_reg is absorbed into DSP array/row[1].col[5].pe_inst/c_out_reg.
+DSP Report: operator array/row[1].col[5].pe_inst/c_out0 is absorbed into DSP array/row[1].col[5].pe_inst/c_out_reg.
+DSP Report: operator array/row[1].col[5].pe_inst/c_out1 is absorbed into DSP array/row[1].col[5].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[2].col[5].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[2].col[5].pe_inst/weight_reg is absorbed into DSP array/row[2].col[5].pe_inst/c_out_reg.
+DSP Report: register array/row[2].col[3].pe_inst/a_out_reg is absorbed into DSP array/row[2].col[5].pe_inst/c_out_reg.
+DSP Report: register array/row[2].col[4].pe_inst/a_out_reg is absorbed into DSP array/row[2].col[5].pe_inst/c_out_reg.
+DSP Report: register array/row[2].col[5].pe_inst/c_out_reg is absorbed into DSP array/row[2].col[5].pe_inst/c_out_reg.
+DSP Report: operator array/row[2].col[5].pe_inst/c_out0 is absorbed into DSP array/row[2].col[5].pe_inst/c_out_reg.
+DSP Report: operator array/row[2].col[5].pe_inst/c_out1 is absorbed into DSP array/row[2].col[5].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[3].col[5].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[3].col[5].pe_inst/weight_reg is absorbed into DSP array/row[3].col[5].pe_inst/c_out_reg.
+DSP Report: register array/row[3].col[3].pe_inst/a_out_reg is absorbed into DSP array/row[3].col[5].pe_inst/c_out_reg.
+DSP Report: register array/row[3].col[4].pe_inst/a_out_reg is absorbed into DSP array/row[3].col[5].pe_inst/c_out_reg.
+DSP Report: register array/row[3].col[5].pe_inst/c_out_reg is absorbed into DSP array/row[3].col[5].pe_inst/c_out_reg.
+DSP Report: operator array/row[3].col[5].pe_inst/c_out0 is absorbed into DSP array/row[3].col[5].pe_inst/c_out_reg.
+DSP Report: operator array/row[3].col[5].pe_inst/c_out1 is absorbed into DSP array/row[3].col[5].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[4].col[5].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[4].col[5].pe_inst/weight_reg is absorbed into DSP array/row[4].col[5].pe_inst/c_out_reg.
+DSP Report: register array/row[4].col[3].pe_inst/a_out_reg is absorbed into DSP array/row[4].col[5].pe_inst/c_out_reg.
+DSP Report: register array/row[4].col[4].pe_inst/a_out_reg is absorbed into DSP array/row[4].col[5].pe_inst/c_out_reg.
+DSP Report: register array/row[4].col[5].pe_inst/c_out_reg is absorbed into DSP array/row[4].col[5].pe_inst/c_out_reg.
+DSP Report: operator array/row[4].col[5].pe_inst/c_out0 is absorbed into DSP array/row[4].col[5].pe_inst/c_out_reg.
+DSP Report: operator array/row[4].col[5].pe_inst/c_out1 is absorbed into DSP array/row[4].col[5].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[5].col[5].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[5].col[5].pe_inst/weight_reg is absorbed into DSP array/row[5].col[5].pe_inst/c_out_reg.
+DSP Report: register array/row[5].col[3].pe_inst/a_out_reg is absorbed into DSP array/row[5].col[5].pe_inst/c_out_reg.
+DSP Report: register array/row[5].col[4].pe_inst/a_out_reg is absorbed into DSP array/row[5].col[5].pe_inst/c_out_reg.
+DSP Report: register array/row[5].col[5].pe_inst/c_out_reg is absorbed into DSP array/row[5].col[5].pe_inst/c_out_reg.
+DSP Report: operator array/row[5].col[5].pe_inst/c_out0 is absorbed into DSP array/row[5].col[5].pe_inst/c_out_reg.
+DSP Report: operator array/row[5].col[5].pe_inst/c_out1 is absorbed into DSP array/row[5].col[5].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[6].col[5].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[6].col[5].pe_inst/weight_reg is absorbed into DSP array/row[6].col[5].pe_inst/c_out_reg.
+DSP Report: register array/row[6].col[3].pe_inst/a_out_reg is absorbed into DSP array/row[6].col[5].pe_inst/c_out_reg.
+DSP Report: register array/row[6].col[4].pe_inst/a_out_reg is absorbed into DSP array/row[6].col[5].pe_inst/c_out_reg.
+DSP Report: register array/row[6].col[5].pe_inst/c_out_reg is absorbed into DSP array/row[6].col[5].pe_inst/c_out_reg.
+DSP Report: operator array/row[6].col[5].pe_inst/c_out0 is absorbed into DSP array/row[6].col[5].pe_inst/c_out_reg.
+DSP Report: operator array/row[6].col[5].pe_inst/c_out1 is absorbed into DSP array/row[6].col[5].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[7].col[5].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[7].col[5].pe_inst/weight_reg is absorbed into DSP array/row[7].col[5].pe_inst/c_out_reg.
+DSP Report: register array/row[7].col[3].pe_inst/a_out_reg is absorbed into DSP array/row[7].col[5].pe_inst/c_out_reg.
+DSP Report: register array/row[7].col[4].pe_inst/a_out_reg is absorbed into DSP array/row[7].col[5].pe_inst/c_out_reg.
+DSP Report: register array/row[7].col[5].pe_inst/c_out_reg is absorbed into DSP array/row[7].col[5].pe_inst/c_out_reg.
+DSP Report: operator array/row[7].col[5].pe_inst/c_out0 is absorbed into DSP array/row[7].col[5].pe_inst/c_out_reg.
+DSP Report: operator array/row[7].col[5].pe_inst/c_out1 is absorbed into DSP array/row[7].col[5].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[0].col[6].pe_inst/c_out_reg, operation Mode is: (A''*B2)'.
+DSP Report: register array/row[0].col[6].pe_inst/weight_reg is absorbed into DSP array/row[0].col[6].pe_inst/c_out_reg.
+DSP Report: register array/row[0].col[4].pe_inst/a_out_reg is absorbed into DSP array/row[0].col[6].pe_inst/c_out_reg.
+DSP Report: register array/row[0].col[5].pe_inst/a_out_reg is absorbed into DSP array/row[0].col[6].pe_inst/c_out_reg.
+DSP Report: register array/row[0].col[6].pe_inst/c_out_reg is absorbed into DSP array/row[0].col[6].pe_inst/c_out_reg.
+DSP Report: operator array/row[0].col[6].pe_inst/c_out0 is absorbed into DSP array/row[0].col[6].pe_inst/c_out_reg.
+DSP Report: operator array/row[0].col[6].pe_inst/c_out1 is absorbed into DSP array/row[0].col[6].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[1].col[6].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[1].col[6].pe_inst/weight_reg is absorbed into DSP array/row[1].col[6].pe_inst/c_out_reg.
+DSP Report: register array/row[1].col[4].pe_inst/a_out_reg is absorbed into DSP array/row[1].col[6].pe_inst/c_out_reg.
+DSP Report: register array/row[1].col[5].pe_inst/a_out_reg is absorbed into DSP array/row[1].col[6].pe_inst/c_out_reg.
+DSP Report: register array/row[1].col[6].pe_inst/c_out_reg is absorbed into DSP array/row[1].col[6].pe_inst/c_out_reg.
+DSP Report: operator array/row[1].col[6].pe_inst/c_out0 is absorbed into DSP array/row[1].col[6].pe_inst/c_out_reg.
+DSP Report: operator array/row[1].col[6].pe_inst/c_out1 is absorbed into DSP array/row[1].col[6].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[2].col[6].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[2].col[6].pe_inst/weight_reg is absorbed into DSP array/row[2].col[6].pe_inst/c_out_reg.
+DSP Report: register array/row[2].col[4].pe_inst/a_out_reg is absorbed into DSP array/row[2].col[6].pe_inst/c_out_reg.
+DSP Report: register array/row[2].col[5].pe_inst/a_out_reg is absorbed into DSP array/row[2].col[6].pe_inst/c_out_reg.
+DSP Report: register array/row[2].col[6].pe_inst/c_out_reg is absorbed into DSP array/row[2].col[6].pe_inst/c_out_reg.
+DSP Report: operator array/row[2].col[6].pe_inst/c_out0 is absorbed into DSP array/row[2].col[6].pe_inst/c_out_reg.
+DSP Report: operator array/row[2].col[6].pe_inst/c_out1 is absorbed into DSP array/row[2].col[6].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[3].col[6].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[3].col[6].pe_inst/weight_reg is absorbed into DSP array/row[3].col[6].pe_inst/c_out_reg.
+DSP Report: register array/row[3].col[4].pe_inst/a_out_reg is absorbed into DSP array/row[3].col[6].pe_inst/c_out_reg.
+DSP Report: register array/row[3].col[5].pe_inst/a_out_reg is absorbed into DSP array/row[3].col[6].pe_inst/c_out_reg.
+DSP Report: register array/row[3].col[6].pe_inst/c_out_reg is absorbed into DSP array/row[3].col[6].pe_inst/c_out_reg.
+DSP Report: operator array/row[3].col[6].pe_inst/c_out0 is absorbed into DSP array/row[3].col[6].pe_inst/c_out_reg.
+DSP Report: operator array/row[3].col[6].pe_inst/c_out1 is absorbed into DSP array/row[3].col[6].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[4].col[6].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[4].col[6].pe_inst/weight_reg is absorbed into DSP array/row[4].col[6].pe_inst/c_out_reg.
+DSP Report: register array/row[4].col[4].pe_inst/a_out_reg is absorbed into DSP array/row[4].col[6].pe_inst/c_out_reg.
+DSP Report: register array/row[4].col[5].pe_inst/a_out_reg is absorbed into DSP array/row[4].col[6].pe_inst/c_out_reg.
+DSP Report: register array/row[4].col[6].pe_inst/c_out_reg is absorbed into DSP array/row[4].col[6].pe_inst/c_out_reg.
+DSP Report: operator array/row[4].col[6].pe_inst/c_out0 is absorbed into DSP array/row[4].col[6].pe_inst/c_out_reg.
+DSP Report: operator array/row[4].col[6].pe_inst/c_out1 is absorbed into DSP array/row[4].col[6].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[5].col[6].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[5].col[6].pe_inst/weight_reg is absorbed into DSP array/row[5].col[6].pe_inst/c_out_reg.
+DSP Report: register array/row[5].col[4].pe_inst/a_out_reg is absorbed into DSP array/row[5].col[6].pe_inst/c_out_reg.
+DSP Report: register array/row[5].col[5].pe_inst/a_out_reg is absorbed into DSP array/row[5].col[6].pe_inst/c_out_reg.
+DSP Report: register array/row[5].col[6].pe_inst/c_out_reg is absorbed into DSP array/row[5].col[6].pe_inst/c_out_reg.
+DSP Report: operator array/row[5].col[6].pe_inst/c_out0 is absorbed into DSP array/row[5].col[6].pe_inst/c_out_reg.
+DSP Report: operator array/row[5].col[6].pe_inst/c_out1 is absorbed into DSP array/row[5].col[6].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[6].col[6].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[6].col[6].pe_inst/weight_reg is absorbed into DSP array/row[6].col[6].pe_inst/c_out_reg.
+DSP Report: register array/row[6].col[4].pe_inst/a_out_reg is absorbed into DSP array/row[6].col[6].pe_inst/c_out_reg.
+DSP Report: register array/row[6].col[5].pe_inst/a_out_reg is absorbed into DSP array/row[6].col[6].pe_inst/c_out_reg.
+DSP Report: register array/row[6].col[6].pe_inst/c_out_reg is absorbed into DSP array/row[6].col[6].pe_inst/c_out_reg.
+DSP Report: operator array/row[6].col[6].pe_inst/c_out0 is absorbed into DSP array/row[6].col[6].pe_inst/c_out_reg.
+DSP Report: operator array/row[6].col[6].pe_inst/c_out1 is absorbed into DSP array/row[6].col[6].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[7].col[6].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[7].col[6].pe_inst/weight_reg is absorbed into DSP array/row[7].col[6].pe_inst/c_out_reg.
+DSP Report: register array/row[7].col[4].pe_inst/a_out_reg is absorbed into DSP array/row[7].col[6].pe_inst/c_out_reg.
+DSP Report: register array/row[7].col[5].pe_inst/a_out_reg is absorbed into DSP array/row[7].col[6].pe_inst/c_out_reg.
+DSP Report: register array/row[7].col[6].pe_inst/c_out_reg is absorbed into DSP array/row[7].col[6].pe_inst/c_out_reg.
+DSP Report: operator array/row[7].col[6].pe_inst/c_out0 is absorbed into DSP array/row[7].col[6].pe_inst/c_out_reg.
+DSP Report: operator array/row[7].col[6].pe_inst/c_out1 is absorbed into DSP array/row[7].col[6].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[0].col[7].pe_inst/c_out_reg, operation Mode is: (A''*B2)'.
+DSP Report: register array/row[0].col[7].pe_inst/weight_reg is absorbed into DSP array/row[0].col[7].pe_inst/c_out_reg.
+DSP Report: register array/row[0].col[5].pe_inst/a_out_reg is absorbed into DSP array/row[0].col[7].pe_inst/c_out_reg.
+DSP Report: register array/row[0].col[6].pe_inst/a_out_reg is absorbed into DSP array/row[0].col[7].pe_inst/c_out_reg.
+DSP Report: register array/row[0].col[7].pe_inst/c_out_reg is absorbed into DSP array/row[0].col[7].pe_inst/c_out_reg.
+DSP Report: operator array/row[0].col[7].pe_inst/c_out0 is absorbed into DSP array/row[0].col[7].pe_inst/c_out_reg.
+DSP Report: operator array/row[0].col[7].pe_inst/c_out1 is absorbed into DSP array/row[0].col[7].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[1].col[7].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[1].col[7].pe_inst/weight_reg is absorbed into DSP array/row[1].col[7].pe_inst/c_out_reg.
+DSP Report: register array/row[1].col[5].pe_inst/a_out_reg is absorbed into DSP array/row[1].col[7].pe_inst/c_out_reg.
+DSP Report: register array/row[1].col[6].pe_inst/a_out_reg is absorbed into DSP array/row[1].col[7].pe_inst/c_out_reg.
+DSP Report: register array/row[1].col[7].pe_inst/c_out_reg is absorbed into DSP array/row[1].col[7].pe_inst/c_out_reg.
+DSP Report: operator array/row[1].col[7].pe_inst/c_out0 is absorbed into DSP array/row[1].col[7].pe_inst/c_out_reg.
+DSP Report: operator array/row[1].col[7].pe_inst/c_out1 is absorbed into DSP array/row[1].col[7].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[2].col[7].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[2].col[7].pe_inst/weight_reg is absorbed into DSP array/row[2].col[7].pe_inst/c_out_reg.
+DSP Report: register array/row[2].col[5].pe_inst/a_out_reg is absorbed into DSP array/row[2].col[7].pe_inst/c_out_reg.
+DSP Report: register array/row[2].col[6].pe_inst/a_out_reg is absorbed into DSP array/row[2].col[7].pe_inst/c_out_reg.
+DSP Report: register array/row[2].col[7].pe_inst/c_out_reg is absorbed into DSP array/row[2].col[7].pe_inst/c_out_reg.
+DSP Report: operator array/row[2].col[7].pe_inst/c_out0 is absorbed into DSP array/row[2].col[7].pe_inst/c_out_reg.
+DSP Report: operator array/row[2].col[7].pe_inst/c_out1 is absorbed into DSP array/row[2].col[7].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[3].col[7].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[3].col[7].pe_inst/weight_reg is absorbed into DSP array/row[3].col[7].pe_inst/c_out_reg.
+DSP Report: register array/row[3].col[5].pe_inst/a_out_reg is absorbed into DSP array/row[3].col[7].pe_inst/c_out_reg.
+DSP Report: register array/row[3].col[6].pe_inst/a_out_reg is absorbed into DSP array/row[3].col[7].pe_inst/c_out_reg.
+DSP Report: register array/row[3].col[7].pe_inst/c_out_reg is absorbed into DSP array/row[3].col[7].pe_inst/c_out_reg.
+DSP Report: operator array/row[3].col[7].pe_inst/c_out0 is absorbed into DSP array/row[3].col[7].pe_inst/c_out_reg.
+DSP Report: operator array/row[3].col[7].pe_inst/c_out1 is absorbed into DSP array/row[3].col[7].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[4].col[7].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[4].col[7].pe_inst/weight_reg is absorbed into DSP array/row[4].col[7].pe_inst/c_out_reg.
+DSP Report: register array/row[4].col[5].pe_inst/a_out_reg is absorbed into DSP array/row[4].col[7].pe_inst/c_out_reg.
+DSP Report: register array/row[4].col[6].pe_inst/a_out_reg is absorbed into DSP array/row[4].col[7].pe_inst/c_out_reg.
+DSP Report: register array/row[4].col[7].pe_inst/c_out_reg is absorbed into DSP array/row[4].col[7].pe_inst/c_out_reg.
+DSP Report: operator array/row[4].col[7].pe_inst/c_out0 is absorbed into DSP array/row[4].col[7].pe_inst/c_out_reg.
+DSP Report: operator array/row[4].col[7].pe_inst/c_out1 is absorbed into DSP array/row[4].col[7].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[5].col[7].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[5].col[7].pe_inst/weight_reg is absorbed into DSP array/row[5].col[7].pe_inst/c_out_reg.
+DSP Report: register array/row[5].col[5].pe_inst/a_out_reg is absorbed into DSP array/row[5].col[7].pe_inst/c_out_reg.
+DSP Report: register array/row[5].col[6].pe_inst/a_out_reg is absorbed into DSP array/row[5].col[7].pe_inst/c_out_reg.
+DSP Report: register array/row[5].col[7].pe_inst/c_out_reg is absorbed into DSP array/row[5].col[7].pe_inst/c_out_reg.
+DSP Report: operator array/row[5].col[7].pe_inst/c_out0 is absorbed into DSP array/row[5].col[7].pe_inst/c_out_reg.
+DSP Report: operator array/row[5].col[7].pe_inst/c_out1 is absorbed into DSP array/row[5].col[7].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[6].col[7].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[6].col[7].pe_inst/weight_reg is absorbed into DSP array/row[6].col[7].pe_inst/c_out_reg.
+DSP Report: register array/row[6].col[5].pe_inst/a_out_reg is absorbed into DSP array/row[6].col[7].pe_inst/c_out_reg.
+DSP Report: register array/row[6].col[6].pe_inst/a_out_reg is absorbed into DSP array/row[6].col[7].pe_inst/c_out_reg.
+DSP Report: register array/row[6].col[7].pe_inst/c_out_reg is absorbed into DSP array/row[6].col[7].pe_inst/c_out_reg.
+DSP Report: operator array/row[6].col[7].pe_inst/c_out0 is absorbed into DSP array/row[6].col[7].pe_inst/c_out_reg.
+DSP Report: operator array/row[6].col[7].pe_inst/c_out1 is absorbed into DSP array/row[6].col[7].pe_inst/c_out_reg.
+DSP Report: Generating DSP array/row[7].col[7].pe_inst/c_out_reg, operation Mode is: (PCIN+A''*B2)'.
+DSP Report: register array/row[7].col[7].pe_inst/weight_reg is absorbed into DSP array/row[7].col[7].pe_inst/c_out_reg.
+DSP Report: register array/row[7].col[5].pe_inst/a_out_reg is absorbed into DSP array/row[7].col[7].pe_inst/c_out_reg.
+DSP Report: register array/row[7].col[6].pe_inst/a_out_reg is absorbed into DSP array/row[7].col[7].pe_inst/c_out_reg.
+DSP Report: register array/row[7].col[7].pe_inst/c_out_reg is absorbed into DSP array/row[7].col[7].pe_inst/c_out_reg.
+DSP Report: operator array/row[7].col[7].pe_inst/c_out0 is absorbed into DSP array/row[7].col[7].pe_inst/c_out_reg.
+DSP Report: operator array/row[7].col[7].pe_inst/c_out1 is absorbed into DSP array/row[7].col[7].pe_inst/c_out_reg.
+WARNING: [Synth 8-7129] Port s_axi_awaddr[1] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[0] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[31] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[30] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[29] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[28] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[27] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[26] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[25] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[24] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[23] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[22] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[21] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[20] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[19] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[18] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[17] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[16] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[15] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[14] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[13] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[12] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[11] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[10] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[9] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[8] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[7] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[6] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[5] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[4] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[3] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[2] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wdata[1] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wstrb[3] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wstrb[2] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_wstrb[1] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[1] in module axi_lite_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[0] in module axi_lite_ctrl is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 2359.301 ; gain = 760.734 ; free physical = 825457 ; free virtual = 1163136
+---------------------------------------------------------------------------------
+ Sort Area is  array/row[0].col[2].pe_inst/c_out_reg_6 : 0 0 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[2].pe_inst/c_out_reg_6 : 0 1 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[2].pe_inst/c_out_reg_6 : 0 2 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[2].pe_inst/c_out_reg_6 : 0 3 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[2].pe_inst/c_out_reg_6 : 0 4 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[2].pe_inst/c_out_reg_6 : 0 5 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[2].pe_inst/c_out_reg_6 : 0 6 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[2].pe_inst/c_out_reg_6 : 0 7 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[3].pe_inst/c_out_reg_8 : 0 0 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[3].pe_inst/c_out_reg_8 : 0 1 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[3].pe_inst/c_out_reg_8 : 0 2 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[3].pe_inst/c_out_reg_8 : 0 3 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[3].pe_inst/c_out_reg_8 : 0 4 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[3].pe_inst/c_out_reg_8 : 0 5 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[3].pe_inst/c_out_reg_8 : 0 6 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[3].pe_inst/c_out_reg_8 : 0 7 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[4].pe_inst/c_out_reg_9 : 0 0 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[4].pe_inst/c_out_reg_9 : 0 1 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[4].pe_inst/c_out_reg_9 : 0 2 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[4].pe_inst/c_out_reg_9 : 0 3 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[4].pe_inst/c_out_reg_9 : 0 4 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[4].pe_inst/c_out_reg_9 : 0 5 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[4].pe_inst/c_out_reg_9 : 0 6 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[4].pe_inst/c_out_reg_9 : 0 7 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[5].pe_inst/c_out_reg_a : 0 0 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[5].pe_inst/c_out_reg_a : 0 1 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[5].pe_inst/c_out_reg_a : 0 2 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[5].pe_inst/c_out_reg_a : 0 3 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[5].pe_inst/c_out_reg_a : 0 4 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[5].pe_inst/c_out_reg_a : 0 5 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[5].pe_inst/c_out_reg_a : 0 6 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[5].pe_inst/c_out_reg_a : 0 7 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[6].pe_inst/c_out_reg_b : 0 0 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[6].pe_inst/c_out_reg_b : 0 1 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[6].pe_inst/c_out_reg_b : 0 2 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[6].pe_inst/c_out_reg_b : 0 3 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[6].pe_inst/c_out_reg_b : 0 4 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[6].pe_inst/c_out_reg_b : 0 5 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[6].pe_inst/c_out_reg_b : 0 6 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[6].pe_inst/c_out_reg_b : 0 7 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[7].pe_inst/c_out_reg_c : 0 0 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[7].pe_inst/c_out_reg_c : 0 1 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[7].pe_inst/c_out_reg_c : 0 2 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[7].pe_inst/c_out_reg_c : 0 3 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[7].pe_inst/c_out_reg_c : 0 4 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[7].pe_inst/c_out_reg_c : 0 5 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[7].pe_inst/c_out_reg_c : 0 6 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[7].pe_inst/c_out_reg_c : 0 7 : 2112 16896 : Used 1 time 0
+ Sort Area is  array/row[0].col[1].pe_inst/c_out_reg_4 : 0 0 : 2096 16880 : Used 1 time 0
+ Sort Area is  array/row[0].col[1].pe_inst/c_out_reg_4 : 0 1 : 2112 16880 : Used 1 time 0
+ Sort Area is  array/row[0].col[1].pe_inst/c_out_reg_4 : 0 2 : 2112 16880 : Used 1 time 0
+ Sort Area is  array/row[0].col[1].pe_inst/c_out_reg_4 : 0 3 : 2112 16880 : Used 1 time 0
+ Sort Area is  array/row[0].col[1].pe_inst/c_out_reg_4 : 0 4 : 2112 16880 : Used 1 time 0
+ Sort Area is  array/row[0].col[1].pe_inst/c_out_reg_4 : 0 5 : 2112 16880 : Used 1 time 0
+ Sort Area is  array/row[0].col[1].pe_inst/c_out_reg_4 : 0 6 : 2112 16880 : Used 1 time 0
+ Sort Area is  array/row[0].col[1].pe_inst/c_out_reg_4 : 0 7 : 2112 16880 : Used 1 time 0
+ Sort Area is  array/row[0].col[0].pe_inst/c_out_reg_0 : 0 0 : 2080 16848 : Used 1 time 0
+ Sort Area is  array/row[0].col[0].pe_inst/c_out_reg_0 : 0 1 : 2096 16848 : Used 1 time 0
+ Sort Area is  array/row[0].col[0].pe_inst/c_out_reg_0 : 0 2 : 2112 16848 : Used 1 time 0
+ Sort Area is  array/row[0].col[0].pe_inst/c_out_reg_0 : 0 3 : 2112 16848 : Used 1 time 0
+ Sort Area is  array/row[0].col[0].pe_inst/c_out_reg_0 : 0 4 : 2112 16848 : Used 1 time 0
+ Sort Area is  array/row[0].col[0].pe_inst/c_out_reg_0 : 0 5 : 2112 16848 : Used 1 time 0
+ Sort Area is  array/row[0].col[0].pe_inst/c_out_reg_0 : 0 6 : 2112 16848 : Used 1 time 0
+ Sort Area is  array/row[0].col[0].pe_inst/c_out_reg_0 : 0 7 : 2112 16848 : Used 1 time 0
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Preliminary Mapping Report (see note below)
++------------+-------------------------------+-----------+----------------------+-------------+
+|Module Name | RTL Object                    | Inference | Size (Depth x Width) | Primitives  | 
++------------+-------------------------------+-----------+----------------------+-------------+
+|gemm_top    | abuf/bank[0].buf_inst/mem_reg | Implied   | 8 x 16               | RAM32M x 3  | 
+|gemm_top    | abuf/bank[1].buf_inst/mem_reg | Implied   | 8 x 16               | RAM32M x 3  | 
+|gemm_top    | abuf/bank[2].buf_inst/mem_reg | Implied   | 8 x 16               | RAM32M x 3  | 
+|gemm_top    | abuf/bank[3].buf_inst/mem_reg | Implied   | 8 x 16               | RAM32M x 3  | 
+|gemm_top    | abuf/bank[4].buf_inst/mem_reg | Implied   | 8 x 16               | RAM32M x 3  | 
+|gemm_top    | abuf/bank[5].buf_inst/mem_reg | Implied   | 8 x 16               | RAM32M x 3  | 
+|gemm_top    | abuf/bank[6].buf_inst/mem_reg | Implied   | 8 x 16               | RAM32M x 3  | 
+|gemm_top    | abuf/bank[7].buf_inst/mem_reg | Implied   | 8 x 16               | RAM32M x 3  | 
++------------+-------------------------------+-----------+----------------------+-------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+
+DSP: Preliminary Mapping Report (see note below. The ' indicates corresponding REG is set)
++------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name | DSP Mapping    | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|pe          | (A*B2)'        | 16     | 16     | -      | -      | 32     | 0    | 1    | -    | -    | -     | 1    | 0    | 
+|pe          | (PCIN+A2*B2)'  | 16     | 16     | -      | -      | 32     | 1    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (A2*B2)'       | 16     | 16     | -      | -      | 32     | 1    | 1    | -    | -    | -     | 1    | 0    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (A''*B2)'      | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 1    | 0    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (A''*B2)'      | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 1    | 0    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (A''*B2)'      | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 1    | 0    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (A''*B2)'      | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 1    | 0    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (A''*B2)'      | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 1    | 0    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (A''*B2)'      | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 1    | 0    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B2)' | 16     | 16     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
++------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+Note: The table above is a preliminary report that shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 2359.301 ; gain = 760.734 ; free physical = 825480 ; free virtual = 1163161
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Final Mapping Report
++------------+-------------------------------+-----------+----------------------+-------------+
+|Module Name | RTL Object                    | Inference | Size (Depth x Width) | Primitives  | 
++------------+-------------------------------+-----------+----------------------+-------------+
+|gemm_top    | abuf/bank[0].buf_inst/mem_reg | Implied   | 8 x 16               | RAM32M x 3  | 
+|gemm_top    | abuf/bank[1].buf_inst/mem_reg | Implied   | 8 x 16               | RAM32M x 3  | 
+|gemm_top    | abuf/bank[2].buf_inst/mem_reg | Implied   | 8 x 16               | RAM32M x 3  | 
+|gemm_top    | abuf/bank[3].buf_inst/mem_reg | Implied   | 8 x 16               | RAM32M x 3  | 
+|gemm_top    | abuf/bank[4].buf_inst/mem_reg | Implied   | 8 x 16               | RAM32M x 3  | 
+|gemm_top    | abuf/bank[5].buf_inst/mem_reg | Implied   | 8 x 16               | RAM32M x 3  | 
+|gemm_top    | abuf/bank[6].buf_inst/mem_reg | Implied   | 8 x 16               | RAM32M x 3  | 
+|gemm_top    | abuf/bank[7].buf_inst/mem_reg | Implied   | 8 x 16               | RAM32M x 3  | 
++------------+-------------------------------+-----------+----------------------+-------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 2359.301 ; gain = 760.734 ; free physical = 825460 ; free virtual = 1163141
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 2359.301 ; gain = 760.734 ; free physical = 825455 ; free virtual = 1163140
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 2359.301 ; gain = 760.734 ; free physical = 825457 ; free virtual = 1163142
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 2359.301 ; gain = 760.734 ; free physical = 825467 ; free virtual = 1163151
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 2359.301 ; gain = 760.734 ; free physical = 825467 ; free virtual = 1163151
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 2359.301 ; gain = 760.734 ; free physical = 825427 ; free virtual = 1163114
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 2359.301 ; gain = 760.734 ; free physical = 825449 ; free virtual = 1163136
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Static Shift Register Report:
++------------+-----------------------------------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
+|Module Name | RTL Name                                            | Length | Width | Reset Signal | Pull out first Reg | Pull out last Reg | SRL16E | SRLC32E | 
++------------+-----------------------------------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
+|gemm_top    | array/askew_row[6].row_skew/shift.regs_reg[3][15]   | 4      | 16    | YES          | NO                 | YES               | 16     | 0       | 
+|gemm_top    | array/askew_row[7].row_skew/shift.regs_reg[4][15]   | 5      | 16    | YES          | NO                 | YES               | 16     | 0       | 
+|gemm_top    | array/cdrain_col[0].col_drain/shift.regs_reg[6][31] | 7      | 32    | YES          | NO                 | YES               | 32     | 0       | 
+|gemm_top    | array/cdrain_col[1].col_drain/shift.regs_reg[5][31] | 6      | 32    | YES          | NO                 | YES               | 32     | 0       | 
+|gemm_top    | array/cdrain_col[2].col_drain/shift.regs_reg[4][31] | 5      | 32    | YES          | NO                 | YES               | 32     | 0       | 
+|gemm_top    | array/cdrain_col[3].col_drain/shift.regs_reg[3][31] | 4      | 32    | YES          | NO                 | YES               | 32     | 0       | 
++------------+-----------------------------------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+DSP Final Report (the ' indicates corresponding REG is set)
++------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name | DSP Mapping    | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|pe          | (A*B')'        | 30     | 18     | -      | -      | 0      | 0    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (A'*B')'       | 30     | 18     | -      | -      | 0      | 1    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (A''*B')'      | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (A''*B')'      | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (A''*B')'      | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (A''*B')'      | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (A''*B')'      | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (A''*B')'      | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A'*B')'  | 30     | 18     | -      | -      | 0      | 1    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 0      | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
+|pe          | (PCIN+A''*B')' | 30     | 18     | -      | -      | 32     | 2    | 1    | -    | -    | -     | 0    | 1    | 
++------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+--------+------+
+|      |Cell    |Count |
++------+--------+------+
+|1     |BUFG    |     1|
+|2     |DSP48E1 |    64|
+|3     |LUT1    |     3|
+|4     |LUT2    |   300|
+|5     |LUT3    |    11|
+|6     |LUT4    |    24|
+|7     |LUT5    |     6|
+|8     |LUT6    |   589|
+|9     |MUXF7   |   244|
+|10    |MUXF8   |    56|
+|11    |RAM32M  |    24|
+|12    |SRL16E  |   160|
+|13    |FDRE    |  4710|
+|14    |FDSE    |     6|
+|15    |IBUF    |   287|
+|16    |OBUF    |    41|
++------+--------+------+
+
+Report Instance Areas: 
++------+------------------------------+---------------------------+------+
+|      |Instance                      |Module                     |Cells |
++------+------------------------------+---------------------------+------+
+|1     |top                           |                           |  6526|
+|2     |  abuf                        |a_tile_buffer              |   152|
+|3     |    \bank[0].buf_inst         |tile_buffer                |    19|
+|4     |    \bank[1].buf_inst         |tile_buffer_63             |    19|
+|5     |    \bank[2].buf_inst         |tile_buffer_64             |    19|
+|6     |    \bank[3].buf_inst         |tile_buffer_65             |    19|
+|7     |    \bank[4].buf_inst         |tile_buffer_66             |    19|
+|8     |    \bank[5].buf_inst         |tile_buffer_67             |    19|
+|9     |    \bank[6].buf_inst         |tile_buffer_68             |    19|
+|10    |    \bank[7].buf_inst         |tile_buffer_69             |    19|
+|11    |  array                       |systolic_array             |  1847|
+|12    |    \askew_row[1].row_skew    |shift_reg__parameterized0  |    16|
+|13    |    \askew_row[2].row_skew    |shift_reg__parameterized1  |    32|
+|14    |    \askew_row[3].row_skew    |shift_reg__parameterized2  |    48|
+|15    |    \askew_row[4].row_skew    |shift_reg__parameterized3  |    64|
+|16    |    \askew_row[5].row_skew    |shift_reg__parameterized4  |    80|
+|17    |    \askew_row[6].row_skew    |shift_reg__parameterized5  |    80|
+|18    |    \askew_row[7].row_skew    |shift_reg__parameterized6  |    80|
+|19    |    \cdrain_col[0].col_drain  |shift_reg__parameterized7  |    96|
+|20    |    \cdrain_col[1].col_drain  |shift_reg__parameterized8  |    96|
+|21    |    \cdrain_col[2].col_drain  |shift_reg__parameterized9  |    96|
+|22    |    \cdrain_col[3].col_drain  |shift_reg__parameterized10 |    96|
+|23    |    \cdrain_col[4].col_drain  |shift_reg__parameterized11 |    97|
+|24    |    \cdrain_col[5].col_drain  |shift_reg__parameterized12 |    64|
+|25    |    \cdrain_col[6].col_drain  |shift_reg__parameterized13 |    32|
+|26    |    \row[0].col[0].pe_inst    |pe                         |    17|
+|27    |    \row[0].col[1].pe_inst    |pe_0                       |    17|
+|28    |    \row[0].col[2].pe_inst    |pe_1                       |    17|
+|29    |    \row[0].col[3].pe_inst    |pe_2                       |    17|
+|30    |    \row[0].col[4].pe_inst    |pe_3                       |    17|
+|31    |    \row[0].col[5].pe_inst    |pe_4                       |     1|
+|32    |    \row[0].col[6].pe_inst    |pe_5                       |     1|
+|33    |    \row[0].col[7].pe_inst    |pe_6                       |     1|
+|34    |    \row[1].col[0].pe_inst    |pe_7                       |    17|
+|35    |    \row[1].col[1].pe_inst    |pe_8                       |    17|
+|36    |    \row[1].col[2].pe_inst    |pe_9                       |    17|
+|37    |    \row[1].col[3].pe_inst    |pe_10                      |    17|
+|38    |    \row[1].col[4].pe_inst    |pe_11                      |    17|
+|39    |    \row[1].col[5].pe_inst    |pe_12                      |     1|
+|40    |    \row[1].col[6].pe_inst    |pe_13                      |     1|
+|41    |    \row[1].col[7].pe_inst    |pe_14                      |     1|
+|42    |    \row[2].col[0].pe_inst    |pe_15                      |    17|
+|43    |    \row[2].col[1].pe_inst    |pe_16                      |    17|
+|44    |    \row[2].col[2].pe_inst    |pe_17                      |    17|
+|45    |    \row[2].col[3].pe_inst    |pe_18                      |    17|
+|46    |    \row[2].col[4].pe_inst    |pe_19                      |    17|
+|47    |    \row[2].col[5].pe_inst    |pe_20                      |     1|
+|48    |    \row[2].col[6].pe_inst    |pe_21                      |     1|
+|49    |    \row[2].col[7].pe_inst    |pe_22                      |     1|
+|50    |    \row[3].col[0].pe_inst    |pe_23                      |    17|
+|51    |    \row[3].col[1].pe_inst    |pe_24                      |    17|
+|52    |    \row[3].col[2].pe_inst    |pe_25                      |    17|
+|53    |    \row[3].col[3].pe_inst    |pe_26                      |    17|
+|54    |    \row[3].col[4].pe_inst    |pe_27                      |    17|
+|55    |    \row[3].col[5].pe_inst    |pe_28                      |     1|
+|56    |    \row[3].col[6].pe_inst    |pe_29                      |     1|
+|57    |    \row[3].col[7].pe_inst    |pe_30                      |     1|
+|58    |    \row[4].col[0].pe_inst    |pe_31                      |    17|
+|59    |    \row[4].col[1].pe_inst    |pe_32                      |    17|
+|60    |    \row[4].col[2].pe_inst    |pe_33                      |    17|
+|61    |    \row[4].col[3].pe_inst    |pe_34                      |    17|
+|62    |    \row[4].col[4].pe_inst    |pe_35                      |    17|
+|63    |    \row[4].col[5].pe_inst    |pe_36                      |     1|
+|64    |    \row[4].col[6].pe_inst    |pe_37                      |     1|
+|65    |    \row[4].col[7].pe_inst    |pe_38                      |     1|
+|66    |    \row[5].col[0].pe_inst    |pe_39                      |    17|
+|67    |    \row[5].col[1].pe_inst    |pe_40                      |    17|
+|68    |    \row[5].col[2].pe_inst    |pe_41                      |    17|
+|69    |    \row[5].col[3].pe_inst    |pe_42                      |    17|
+|70    |    \row[5].col[4].pe_inst    |pe_43                      |    17|
+|71    |    \row[5].col[5].pe_inst    |pe_44                      |     1|
+|72    |    \row[5].col[6].pe_inst    |pe_45                      |     1|
+|73    |    \row[5].col[7].pe_inst    |pe_46                      |     1|
+|74    |    \row[6].col[0].pe_inst    |pe_47                      |    17|
+|75    |    \row[6].col[1].pe_inst    |pe_48                      |    17|
+|76    |    \row[6].col[2].pe_inst    |pe_49                      |    17|
+|77    |    \row[6].col[3].pe_inst    |pe_50                      |    17|
+|78    |    \row[6].col[4].pe_inst    |pe_51                      |    17|
+|79    |    \row[6].col[5].pe_inst    |pe_52                      |     1|
+|80    |    \row[6].col[6].pe_inst    |pe_53                      |     1|
+|81    |    \row[6].col[7].pe_inst    |pe_54                      |     1|
+|82    |    \row[7].col[0].pe_inst    |pe_55                      |    17|
+|83    |    \row[7].col[1].pe_inst    |pe_56                      |    17|
+|84    |    \row[7].col[2].pe_inst    |pe_57                      |    17|
+|85    |    \row[7].col[3].pe_inst    |pe_58                      |    17|
+|86    |    \row[7].col[4].pe_inst    |pe_59                      |    17|
+|87    |    \row[7].col[5].pe_inst    |pe_60                      |     1|
+|88    |    \row[7].col[6].pe_inst    |pe_61                      |     1|
+|89    |    \row[7].col[7].pe_inst    |pe_62                      |     1|
+|90    |  axi_ctrl                    |axi_lite_ctrl              |   944|
+|91    |  bbuf                        |b_tile_buffer              |  1032|
+|92    |  ctrl                        |tile_ctrl                  |   161|
++------+------------------------------+---------------------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 2359.301 ; gain = 760.734 ; free physical = 825465 ; free virtual = 1163152
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 81 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 2359.301 ; gain = 760.734 ; free physical = 825466 ; free virtual = 1163152
+Synthesis Optimization Complete : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 2359.309 ; gain = 760.734 ; free physical = 825462 ; free virtual = 1163149
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.09 ; elapsed = 00:00:00.08 . Memory (MB): peak = 2359.309 ; gain = 0.000 ; free physical = 825719 ; free virtual = 1163405
+INFO: [Netlist 29-17] Analyzing 388 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2451.141 ; gain = 0.000 ; free physical = 825678 ; free virtual = 1163355
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 24 instances were transformed.
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 24 instances
+
+Synth Design complete | Checksum: 6b16e4b6
+INFO: [Common 17-83] Releasing license: Synthesis
+65 Infos, 81 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:27 ; elapsed = 00:00:25 . Memory (MB): peak = 2451.176 ; gain = 856.578 ; free physical = 825704 ; free virtual = 1163382
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 1720.324; main = 1420.912; forked = 352.647
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3972.781; main = 2451.145; forked = 1613.477
+Write ShapeDB Complete: Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2475.152 ; gain = 0.000 ; free physical = 825721 ; free virtual = 1163398
+INFO: [Common 17-1381] The checkpoint '/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/vivado/gemm_ip_packaging/gemm_ip_packaging.runs/synth_1/gemm_top.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file gemm_top_utilization_synth.rpt -pb gemm_top_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Sun May 10 23:22:06 2026...

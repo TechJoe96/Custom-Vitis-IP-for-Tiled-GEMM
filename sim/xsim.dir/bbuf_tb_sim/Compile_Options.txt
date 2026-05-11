@@ -1,0 +1,1 @@
+-debug "typical" "b_tile_buffer_tb" -snapshot "bbuf_tb_sim" 

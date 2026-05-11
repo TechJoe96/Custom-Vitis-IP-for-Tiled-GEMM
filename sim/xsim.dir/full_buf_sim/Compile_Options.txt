@@ -1,0 +1,1 @@
+-debug "typical" "array_full_buf_tb" -snapshot "full_buf_sim" 

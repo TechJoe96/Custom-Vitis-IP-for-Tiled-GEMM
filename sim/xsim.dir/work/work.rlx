@@ -1,0 +1,21 @@
+0.7
+2020.2
+Oct 13 2023
+20:21:30
+/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/a_tile_buffer.sv,1778446039,systemVerilog,,/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/b_tile_buffer.sv,,a_tile_buffer,,,,,,,,
+/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/axi_lite_ctrl.sv,1778461987,systemVerilog,,/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/gemm_top.sv,,axi_lite_ctrl,,,,,,,,
+/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/b_tile_buffer.sv,1778450291,systemVerilog,,/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/tile_ctrl.sv,,b_tile_buffer,,,,,,,,
+/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/gemm_top.sv,1778468240,systemVerilog,,/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/tb/gemm_axi_tb.sv,,gemm_top,,,,,,,,
+/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/pe.sv,1778357320,systemVerilog,,/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv,,pe,,,,,,,,
+/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv,1778378461,systemVerilog,,/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/systolic_array.sv,,shift_reg,,,,,,,,
+/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/systolic_array.sv,1778387422,systemVerilog,,/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/tile_buffer.sv,,systolic_array,,,,,,,,
+/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/tile_buffer.sv,1778444885,systemVerilog,,/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/a_tile_buffer.sv,,tile_buffer,,,,,,,,
+/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/tile_ctrl.sv,1778451991,systemVerilog,,/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/axi_lite_ctrl.sv,,tile_ctrl,,,,,,,,
+/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/tb/a_tile_buffer_tb.sv,1778446039,systemVerilog,,,,a_tile_buffer_tb,,,,,,,,
+/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/tb/array_ctrl_tb.sv,1778453568,systemVerilog,,,,array_ctrl_tb,,,,,,,,
+/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/tb/array_full_buf_tb.sv,1778451047,systemVerilog,,,,array_full_buf_tb,,,,,,,,
+/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/tb/array_with_buf_tb.sv,1778447556,systemVerilog,,,,array_with_buf_tb,,,,,,,,
+/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/tb/b_tile_buffer_tb.sv,1778450291,systemVerilog,,,,b_tile_buffer_tb,,,,,,,,
+/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/tb/gemm_axi_tb.sv,1778467951,systemVerilog,,,,gemm_axi_tb,,,,,,,,
+/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/tb/systolic_array_tb.sv,1778385697,systemVerilog,,,,systolic_array_tb,,,,,,,,
+/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/tb/tile_buffer_tb.sv,1778444885,systemVerilog,,,,tile_buffer_tb,,,,,,,,

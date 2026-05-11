@@ -1,0 +1,20 @@
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/pe.sv" into library work
+INFO: [VRFC 10-311] analyzing module pe
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/shift_reg.sv" into library work
+INFO: [VRFC 10-311] analyzing module shift_reg
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/systolic_array.sv" into library work
+INFO: [VRFC 10-311] analyzing module systolic_array
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/tile_buffer.sv" into library work
+INFO: [VRFC 10-311] analyzing module tile_buffer
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/a_tile_buffer.sv" into library work
+INFO: [VRFC 10-311] analyzing module a_tile_buffer
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/b_tile_buffer.sv" into library work
+INFO: [VRFC 10-311] analyzing module b_tile_buffer
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/tile_ctrl.sv" into library work
+INFO: [VRFC 10-311] analyzing module tile_ctrl
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/axi_lite_ctrl.sv" into library work
+INFO: [VRFC 10-311] analyzing module axi_lite_ctrl
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/rtl/gemm_top.sv" into library work
+INFO: [VRFC 10-311] analyzing module gemm_top
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/tb/gemm_axi_tb.sv" into library work
+INFO: [VRFC 10-311] analyzing module gemm_axi_tb

@@ -1,0 +1,7 @@
+Running: xsim.dir/abuf_int_sim/xsimk -runall -simmode gui -wdb abuf_int_sim.wdb -simrunnum 0 -socket 60895
+Design successfully loaded
+Design Loading Memory Usage: 34176 KB (Peak: 34180 KB)
+Design Loading CPU Usage: 10 ms
+Simulation completed
+Simulation Memory Usage: 120272 KB (Peak: 173444 KB)
+Simulation CPU Usage: 50 ms

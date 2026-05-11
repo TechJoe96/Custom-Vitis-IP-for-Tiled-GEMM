@@ -1,0 +1,1 @@
+-debug "typical" "axi_lite_ctrl" -snapshot "axi_compile_check" 

@@ -1,0 +1,37 @@
+Vivado Simulator v2023.2
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: /eda/xilinx/Vivado/2023.2/bin/unwrapped/lnx64.o/xelab -debug typical gemm_axi_tb -snapshot gemm_axi_sim 
+Multi-threading is on. Using 126 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module work.axi_lite_ctrl
+Compiling module work.tile_ctrl_default
+Compiling module work.tile_buffer(DEPTH=8)
+Compiling module work.a_tile_buffer_default
+Compiling module work.b_tile_buffer_default
+Compiling module work.shift_reg(DEPTH=0)
+Compiling module work.shift_reg_default
+Compiling module work.shift_reg(DEPTH=2)
+Compiling module work.shift_reg(DEPTH=3)
+Compiling module work.shift_reg(DEPTH=4)
+Compiling module work.shift_reg(DEPTH=5)
+Compiling module work.shift_reg(DEPTH=6)
+Compiling module work.shift_reg(DEPTH=7)
+Compiling module work.pe
+Compiling module work.shift_reg(WIDTH=32,DEPTH=7)
+Compiling module work.shift_reg(WIDTH=32,DEPTH=6)
+Compiling module work.shift_reg(WIDTH=32,DEPTH=5)
+Compiling module work.shift_reg(WIDTH=32,DEPTH=4)
+Compiling module work.shift_reg(WIDTH=32,DEPTH=3)
+Compiling module work.shift_reg(WIDTH=32,DEPTH=2)
+Compiling module work.shift_reg(WIDTH=32)
+Compiling module work.shift_reg(WIDTH=32,DEPTH=0)
+Compiling module work.systolic_array_default
+Compiling module work.gemm_top
+Compiling module work.gemm_axi_tb
+Built simulation snapshot gemm_axi_sim

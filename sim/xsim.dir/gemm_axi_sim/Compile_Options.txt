@@ -1,0 +1,1 @@
+-debug "typical" "gemm_axi_tb" -snapshot "gemm_axi_sim" 

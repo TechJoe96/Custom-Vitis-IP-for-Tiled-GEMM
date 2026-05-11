@@ -1,0 +1,37 @@
+#-----------------------------------------------------------
+# xsim v2023.2 (64-bit)
+# SW Build 4029153 on Fri Oct 13 20:13:54 MDT 2023
+# IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
+# SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
+# Start of session at: Sun May 10 22:04:36 2026
+# Process ID: 3856512
+# Current directory: /home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/sim
+# Command line: xsim -mode tcl -source {xsim.dir/gemm_axi_sim/xsim_script.tcl}
+# Log file: /home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/sim/xsim.log
+# Journal file: /home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/sim/xsim.jou
+# Running On: ecs02.poly.edu, OS: Linux, CPU Frequency: 2200.000 MHz, CPU Physical cores: 32, Host memory: 1064159 MB
+#-----------------------------------------------------------
+source xsim.dir/gemm_axi_sim/xsim_script.tcl
+# xsim {gemm_axi_sim} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+Loaded 100 test cases.
+FAIL T=0 row=0 col=0 got=-2300 expected=-791
+FAIL T=0 row=0 col=1 got=-2300 expected=-636
+FAIL T=0 row=0 col=2 got=-2733 expected=-106
+FAIL T=0 row=0 col=3 got=-2733 expected=1059
+FAIL T=0 row=0 col=4 got=-851 expected=339
+FAIL T=0 row=0 col=5 got=-851 expected=785
+FAIL T=0 row=0 col=6 got=-3822 expected=-815
+FAIL T=0 row=0 col=7 got=-3822 expected=-767
+FAIL T=0 row=1 col=0 got=-1483 expected=-1170
+FAIL T=0 row=1 col=1 got=-1483 expected=765
+==================== SUMMARY ====================
+Total checks: 6400  (100 tests x 64 values each)
+Pass:         6336
+Fail:         64
+RESULT:       FAILED
+=================================================
+$finish called at time : 226045 ns : File "/home/yc7330/Custom-Vitis-IP-for-Tiled-GEMM/tb/gemm_axi_tb.sv" Line 164
+exit
+INFO: [Common 17-206] Exiting xsim at Sun May 10 22:04:39 2026...
