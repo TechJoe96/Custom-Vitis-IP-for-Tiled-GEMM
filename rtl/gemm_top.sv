@@ -1,11 +1,12 @@
 `timescale 1ns/1ps
 module gemm_top #(
-    parameter int N     = 8,
-    parameter int WIDTH = 16
+    parameter int N          = 8,
+    parameter int WIDTH      = 16,
+    parameter int ADDR_WIDTH = 9
 ) (
     input  logic                       s_axi_aclk,
     input  logic                       s_axi_aresetn,
-    input  logic [3:0]                 s_axi_awaddr,
+    input  logic [ADDR_WIDTH-1:0]      s_axi_awaddr,
     input  logic                       s_axi_awvalid,
     output logic                       s_axi_awready,
     input  logic [31:0]                s_axi_wdata,
@@ -15,7 +16,7 @@ module gemm_top #(
     output logic [1:0]                 s_axi_bresp,
     output logic                       s_axi_bvalid,
     input  logic                       s_axi_bready,
-    input  logic [3:0]                 s_axi_araddr,
+    input  logic [ADDR_WIDTH-1:0]      s_axi_araddr,
     input  logic                       s_axi_arvalid,
     output logic                       s_axi_arready,
     output logic [31:0]                s_axi_rdata,
@@ -27,8 +28,8 @@ module gemm_top #(
     input  logic signed [WIDTH-1:0]    a_wr_data [N],
     input  logic                       b_wr_en,
     input  logic [$clog2(N)-1:0]       b_wr_addr,
-    input  logic signed [WIDTH-1:0]    b_wr_data [N],
-    output logic signed [31:0]         c_out [N]
+    input  logic signed [WIDTH-1:0]    b_wr_data [N]
+// c_out port removed — now AXI-readable only
 );
     logic clk;
     logic rst;
@@ -41,18 +42,41 @@ module gemm_top #(
     logic                       load_weight;
     logic signed [WIDTH-1:0]    a_rd_data [N];
     logic signed [WIDTH-1:0]    b_rd_data [N][N];
+    logic signed [31:0]         c_out [N];
     logic signed [WIDTH-1:0] a_in_to_array [N];
     always_comb begin
         for (int k = 0; k < N; k++)
             a_in_to_array[k] = stream_active ? a_rd_data[k] : '0;
     end
+// Done latch (same as Step 7.2)
     logic done_latched;
     always_ff @(posedge clk) begin
         if (rst)                  done_latched <= 1'b0;
         else if (start_pulse)     done_latched <= 1'b0;
         else if (fsm_done_pulse)  done_latched <= 1'b1;
     end
-    axi_lite_ctrl axi_ctrl (
+// -------- C tile capture --------
+    logic signed [31:0] c_latched [N][N];
+    logic [3:0] cap_idx;   // 0..7 = capturing; 4'hF = idle
+    always_ff @(posedge clk) begin
+        if (rst)                  cap_idx <= 4'hF;
+        else if (fsm_done_pulse)  cap_idx <= 4'd0;
+        else if (cap_idx <= N-2)  cap_idx <= cap_idx + 1;
+        else if (cap_idx == N-1)  cap_idx <= 4'hF;
+    end
+    always_ff @(posedge clk) begin
+        if (fsm_done_pulse) begin
+            // At the edge after FSM's done, c_out shows row 0
+            for (int j = 0; j < N; j++)
+                c_latched[0][j] <= c_out[j];
+        end else if (cap_idx <= N-2) begin
+            // Subsequent edges capture rows 1..7
+            for (int j = 0; j < N; j++)
+                c_latched[cap_idx + 1][j] <= c_out[j];
+        end
+    end
+    // -------- end C capture --------
+axi_lite_ctrl #(.N(N), .ADDR_WIDTH(ADDR_WIDTH)) axi_ctrl (
         .s_axi_aclk    (s_axi_aclk),
         .s_axi_aresetn (s_axi_aresetn),
         .s_axi_awaddr  (s_axi_awaddr),
@@ -73,7 +97,8 @@ module gemm_top #(
         .s_axi_rvalid  (s_axi_rvalid),
         .s_axi_rready  (s_axi_rready),
         .start_pulse   (start_pulse),
-        .done_flag     (done_latched)
+        .done_flag     (done_latched),
+        .c_latched     (c_latched)
     );
     tile_ctrl #(.N(N), .DRAIN_CYCLES(6)) ctrl (
         .clk           (clk),
@@ -84,7 +109,6 @@ module gemm_top #(
         .stream_active (stream_active),
         .done          (fsm_done_pulse)
     );
-
     a_tile_buffer #(.WIDTH(WIDTH), .N(N)) abuf (
         .clk(clk), .wr_en(a_wr_en), .wr_addr(a_wr_addr), .wr_data(a_wr_data),
         .rd_addr(a_rd_addr), .rd_data(a_rd_data)
