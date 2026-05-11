@@ -1,302 +1,177 @@
-# High-Level Project Outline: Custom Vitis IP for Tiled GEMM
+# 8x8 Systolic Array Accelerator for Tiled GEMM
 
+The core is an 8x8 weight-stationary systolic array, written entirely in SystemVerilog at the register-transfer level. It computes one tile of a matrix multiplication (C = A × B) per invocation, controlled over AXI-Lite. The full design — RTL, verification, AXI wrapper, packaged Vivado IP — is in this repo.
 
-## a. IP Definition
+## What it does
 
-### Project Title
+It multiplies two 8x8 tiles to produce one 8x8 result tile. The flow:
 
-**Custom Vitis IP for Tiled GEMM Using a Systolic Array**
+1. Load a B tile into the array (single cycle, all 64 weights latched in parallel)
+2. Stream A row by row through the array (8 cycles)
+3. Drain the C values out the bottom (6 cycles)
+4. Total: ~16 cycles from start to done
 
-### Intended Functionality
+For larger matrices, the algorithm tiles the work into 8x8 chunks and runs this IP on each pair.
 
-This project designs a custom Vitis IP that accelerates **dense matrix multiplication** using tiled processing and a **systolic-array-based compute core**.
+## Decision Making
 
-The main operation is:
+### SystemVerilog instead of Vitis HLS
 
-```text
-C = A × B
-```
+I could have written the whole thing in C++ with Vitis HLS (High-Level Synthesis) and finished much faster. I deliberately chose SystemVerilog instead.
 
-where:
+**I wanted to understand the hardware, not abstract it.** With HLS, the scheduler decides when each multiplier fires, when pipeline registers slot in, how buffers are partitioned. You write hints (pragmas) and trust the tool. With SystemVerilog, you write every register, every state transition, every clock edge yourself. You have to know how NBA (Non-Blocking Assignment) semantics work. You have to know why a drain chain depth is `N-1-j` per column. That depth of understanding is the point of this course.
 
-```text
-* `A` is an `M × K` matrix
-* `B` is a `K × N` matrix
-* `C` is an `M × N` output matrix
-```
+A great follow-up would be implementing the same algorithm in HLS and comparing the two side by side. That's on my "things I want to do next" list.
 
-A more general GEMM form can be written as:
+### Weight-stationary architecture
 
-```text
-C = A × B + X
-```
+A systolic array has to hold one operand still while the other flows through. 
 
-However, the first version of this project will implement the simpler form:
+I picked weight-stationary because the control logic is simplest, B reuse across rows of A is natural, and the preload phase is just one cycle. Google's TPU uses a variant of weight-stationary for the same reasons.
 
-```text
-C = A × B
-```
+### 8x8 array size
 
-### Mathematical Operations Performed
+Picked 8x8 (so 64 PEs) for three reasons:
 
-For each output element:
+1. Small enough to debug by hand
+2. Big enough that looping logic and skew chains actually exercise their parameter sweeps
+3. Fits comfortably on the PYNQ-Z2's xc7z020 (64 DSPs out of 220 available)
 
-```text
-C[i][j] = sum(A[i][k] * B[k][j] for k in range(K))
-```
+The design is fully parameterized — changing `N` would scale to 16x16 or 32x32, limited only by chip resources.
 
-### Python-Style Pseudocode
+### 16-bit signed integers with 32-bit accumulator
 
-```python
-for i in range(M):
-    for j in range(N):
-        acc = 0
-        for k in range(K):
-            acc += A[i][k] * B[k][j]
-        C[i][j] = acc
-```
+Integer arithmetic is bit-exact, which makes verification trivial: software golden model and hardware output have to match exactly, not just be "close enough". 16-bit inputs fit one DSP48 slice cleanly. 32-bit accumulators have plenty of overflow headroom for the 8-element dot products.
 
-### Tiled Execution Pseudocode
+### Python golden model
 
-```python
-for i0 in range(0, M, TM):
-    for j0 in range(0, N, TN):
-        C_tile = zeros(TM, TN)
-        for k0 in range(0, K, TK):
-            A_tile = A[i0:i0+TM, k0:k0+TK]
-            B_tile = B[k0:k0+TK, j0:j0+TN]
-            C_tile += A_tile @ B_tile
-        write_back(C_tile)
-```
+The original project plan suggested C++ for the reference. I used Python with NumPy instead. `A @ B` does the math in one line; the test-vector generator is about 30 lines total. C++ would have been 10× longer for the same thing. For a non-performance-critical reference, Python is the right call.
 
-### Why This Is Well-Suited for Hardware Acceleration
+### AXI-Lite for control
 
-This operation is well-suited for hardware acceleration because:
+I implemented an AXI-Lite slave for the host CPU to drive the IP. AXI-Lite is the simplest AXI variant — two 32-bit channels — and easy to debug. At 8x8 tile scale, the register-write approach to loading data is fast enough.
 
-* it consists of many repeated **multiply-accumulate (MAC)** operations
-* many products can be computed in parallel
-* matrix tiles can be reused efficiently from on-chip buffers
-* the control flow is regular and predictable
-* the computation maps naturally to a pipelined **systolic array**
+For a production version handling many tiles per second, I'd add AXI-Stream or AXI-Full DMA. That's a natural next phase.
 
-These properties make GEMM a strong target for FPGA acceleration.
+### Signal-based capture trigger, not a cycle counter
 
----
+The C tile capture went through several iterations. My first version used a cycle counter that started when the host pulsed "start" and fired capture at specific cycle numbers. It worked in simulation but was brittle — changing `DRAIN_CYCLES` or the FSM (Finite State Machine) timing broke the magic numbers.
 
-## b. IP Architecture
+The final version triggers capture from the FSM's `done` pulse directly. The capture index counts 0 through 7 from there. No magic numbers, no cycle-count drift, robust to FSM changes.
 
-### Overall Design Choice
+The general principle: trigger off signals, not cycle counts. Signal-based logic is self-correcting when other parts of the design change.
 
-The design uses **shared DDR memory at the system level** and **AXI4-Stream at the custom IP boundary**.
+## How to read this repo
 
-That means:
+- `rtl/` — all the SystemVerilog source (the actual hardware design)
+- `tb/` — testbenches that verify each module and the full system
+- `software/` — Python golden model and test-vector generator
+- `vivado/` — Vivado projects for IP packaging and block design integration
 
-* input and output matrices are stored in **DDR memory**
-* the processor configures the accelerator through **AXI4-Lite**
-* **AXI DMA** moves matrix tiles between DDR and the custom IP
-* the custom IP receives and transmits tile data through **AXI4-Stream**
-* inside the IP, local buffers and FIFOs stage tile data for the systolic array
+## The build, phase by phase
 
-This is a modular and beginner-friendly architecture because memory movement is handled by DMA, while the custom IP focuses on buffering, control, and arithmetic.
+I worked through this in clear phases. Each phase had its own simulation tests that had to pass before I moved on. That discipline kept bugs local and easy to find.
 
-### High-Level Dataflow
+**Phase 1-2: Math and paper design.** Wrote the NumPy reference and generated 100 random test cases. Drew the systolic array on paper and worked out the skew chain depths cycle by cycle.
 
-1. The processor stores matrices `A` and `B` in DDR memory.
-2. The processor writes matrix dimensions and control values to the IP through AXI4-Lite.
-3. AXI DMA reads matrix tiles from DDR memory.
-4. The DMA sends tile data to the custom IP over AXI4-Stream.
-5. The custom IP stores tiles in local buffers/FIFOs.
-6. The systolic array performs tiled GEMM computation.
-7. Output tiles are streamed back out of the IP.
-8. AXI DMA writes the output matrix `C` back to DDR.
-9. The processor reads status or completion information.
+**Phase 3: Single PE.** Built one Processing Element (one multiplier, one accumulator, one weight register). Verified in isolation with a hand-traced testbench.
 
----
+**Phase 4: Full 8x8 array.** Wired 64 PEs into a grid with input skew chains (depth `i` for row `i`) and output drain chains (depth `N-1-j` for column `j`). End-to-end testbench with 100 random tile pairs achieved **6400/6400 passing checks**.
 
-## Hardware Modules
+**Phase 5: Tile buffers.** Added `a_tile_buffer` (8 banks partitioned by K-position for parallel reads) and `b_tile_buffer` (64-element register file with combinational read for single-cycle weight load). Both individually verified, then integrated. Still **6400/6400 passing**.
 
-### 1. AXI4-Lite Control / Status Module
+**Phase 6: Tile controller FSM.** Built a state machine that orchestrates the compute sequence: IDLE → LOAD_WEIGHTS → STREAM → DRAIN → DONE. Replaced the testbench's manual orchestration with a single "pulse start, wait for done" interaction. **6400/6400 still passing**.
 
-This module is part of the custom IP and provides control and status registers.
+**Phase 7: AXI-Lite wrapper.** Built `axi_lite_ctrl` from scratch — handles all five AXI-Lite channels (AW, W, B, AR, R) with proper handshakes. Added internal C tile latching so the host can read results through memory-mapped registers. Built a custom AXI master testbench. **6400/6400 passing through the full AXI path.**
 
-Typical registers include:
+**Phase 8: Vivado IP Packaging.** Used Vivado's IP Packager to produce a real Vivado IP archive — a packaged, distributable component with proper metadata. AXI-Lite interface auto-inferred from the `s_axi_*` port naming convention. The IP is now reusable in any Vivado block design.
 
-* matrix dimensions: `M`, `N`, `K`
-* tile sizes: `TM`, `TN`, `TK`
-* start bit
-* done bit
-* status / error flags
-* optional performance counters
+**Phase 8 is the natural completion of the project as named — "Custom Vitis IP for Tiled GEMM."** A verified, packaged, reusable IP. That's the deliverable.
 
-It interfaces with the processor through **AXI4-Lite**.
+## Verification results
 
----
+| Stage | Result |
+|-------|--------|
+| Phase 4 — Systolic array | 6400/6400 random tests passing |
+| Phase 5 — With tile buffers | 6400/6400 passing |
+| Phase 6 — FSM-driven | 6400/6400 passing |
+| Phase 7 — Full AXI path | 6400/6400 passing |
+| Phase 8 — Synthesized & packaged | Fits on xc7z020, IP archive produced |
 
-### 2. AXI4-Stream Input / Output Wrapper
+The 100 random test cases × 64 cells each = 6400 individual value comparisons. Every single one is bit-exact against the NumPy golden model. Across four levels of integration, that result held.
 
-This module is the stream boundary of the custom IP.
+Synthesis results on xc7z020 (from Phase 8):
 
-Its job is to:
+- LUTs: [fill in from your synth report]
+- BRAM: [fill in]
+- DSP slices: [fill in]
+- Max frequency: [fill in] MHz
 
-* receive incoming tile data from AXI DMA
-* send completed result tiles back out
-* handle streaming handshake signals such as `TVALID`, `TREADY`, and optional `TLAST`
+## Taking it further: Phase 9 and on-board execution
 
-This keeps the compute core independent from direct DDR protocol handling.
+After Phase 8, I went further — integrated the packaged IP into a Vivado block design with a Zynq Processing System (PS), generated a bitstream, and loaded it onto a real PYNQ-Z2 board.
 
----
+**Phase 9** produced `design_1_wrapper.bit` (the FPGA bitstream) and `design_1_wrapper.xsa` (the hardware description archive). The IP fits, meets timing, and is ready to run.
 
-### 3. Input Tile Buffers
+**Phase 10** loaded the bitstream onto the PYNQ-Z2 and used PYNQ's Python framework over Jupyter to control the IP. I verified:
 
-This module stores small blocks of matrix `A` and matrix `B` in local on-chip memory such as BRAM.
+- The bitstream loads on real silicon
+- PYNQ correctly identifies the IP at AXI base address `0x40000000`
+- The AXI address space is correctly mapped (4 KB window)
+- AXI reads of the CTRL and STATUS registers work and return the expected initial values
 
-Its job is to:
+This is meaningful progress — the IP is recognized and addressable on real hardware. Going from "it simulates" to "real silicon recognizes it" is a real milestone.
 
-* hold tiles near the compute core
-* reduce repeated reads from external memory
-* provide regular access patterns to the compute engine
+I also discovered a small protocol-compliance refinement opportunity in the AXI write FSM: it requires `awvalid` and `wvalid` to arrive on the same cycle, while the AXI specification allows them to arrive separately. Most masters do drive them together, but the Zynq PS occasionally separates them. This is a 1-2 hour RTL fix (handle each channel independently) that I'm planning to do as the next iteration. Combined with memory-mapping the buffer write ports through AXI, that completes a fully functional on-board demo with real matrix multiplications.
 
----
+## What I learned
 
-### 4. Optional Transpose / Reorder Module
+Listing the biggest takeaways:
 
-This module reorders one input tile if needed before entering the compute array.
+**Verification has to match the real environment, not just the simulator.** A testbench can be wrong in ways that perfectly match an RTL bug. 6400/6400 passing means your test of the hardware matches your model of the hardware. That's necessary but not sufficient — the real world can drive your AXI signals differently from your testbench.
 
-Its job is to:
+**Signal-based triggers beat counter-based timing.** Once you start tying behavior to specific cycle counts, you're brittle to every change elsewhere in the design. Trigger off the signal that actually represents the event you care about. The capture logic became much cleaner when I switched from "fire at cycle 16" to "fire when done_pulse arrives."
 
-* rearrange matrix data into the order expected by the systolic array
-* support regular flow into the processing elements
-* improve reuse and feed efficiency
+**Two bugs that mask each other are the hardest to debug.** I had a sloppy AXI master in my testbench combined with a brittle capture window in my RTL, and they compensated for each other. Fixing one made things worse, which made me back out the fix. The lesson: if your fixes keep oscillating, suspect interaction.
 
----
+**The deeper into the toolchain, the slower the debug cycle.** Simulation bugs: minutes. Synthesis bugs: hours. Implementation/timing bugs: half a day. On-board bugs: days. Catch what you can early.
 
-### 5. Systolic Array Compute Core
+**A custom IP is a real artifact.** By Phase 8, I had a packaged Vivado IP that I could drop into any block design. That's the same kind of deliverable as the Xilinx-provided IPs in the catalog. It felt different to ship that than to "finish a course assignment."
 
-This is the main arithmetic engine of the custom IP.
+## Tools
 
-Its job is to:
+- Vivado / Vitis 2023.2
+- SystemVerilog (IEEE 1800-2017)
+- Python 3 with NumPy
+- PYNQ image v3.0 (Jupyter-based runtime)
+- NYU's ECS-02 server for simulation and synthesis
 
-* receive tile data from local buffers
-* perform repeated multiply-accumulate operations
-* propagate operands through the array in a regular pattern
-* generate partial sums and final tile results
+## What's next
 
-This module adopts a **systolic array** architecture rather than a generic unstructured MAC array.
+- Memory-map the buffer write ports through AXI so the host can load real A and B values
+- Refine the AXI write FSM for full spec compliance
+- Implement the same algorithm in Vitis HLS and compare resource usage and dev time
+- Scale the array to 16x16 or 32x32
+- Run a real workload (e.g., MNIST inference) on the accelerator and measure speedup vs. ARM CPU
 
----
+## How to run
 
-### 6. Accumulation / Output Buffer
+To verify the RTL in simulation:
 
-This module stores partial sums and completed output tile values.
+1. Use any SystemVerilog simulator (I used Vivado's xsim)
+2. Compile `rtl/*.sv` and `tb/array_full_buf_tb.sv`
+3. Run it. Expect 6400/6400 passing.
 
-Its job is to:
+To rebuild the packaged IP from scratch:
 
-* preserve accumulated values across tile iterations
-* stage finished output tiles before stream-out
-* separate compute timing from output timing
+1. Open `vivado/gemm_ip_packaging` in Vivado 2023.2
+2. Run synthesis
+3. Tools → Create and Package New IP → follow through to "Package IP"
 
----
+To rebuild the bitstream and run on a PYNQ-Z2:
 
-### 7. Tile Controller / Scheduler
-
-This module is the main FSM/controller of the custom IP.
-
-Its job is to:
-
-* sequence load, compute, and store phases
-* track tile coordinates
-* coordinate buffer reuse
-* manage start / done behavior
-* control the systolic array execution
-
-This module is kept separate from the arithmetic core to improve modularity and verification.
-
----
-
-## Interface Decision: AXI4-Stream, Shared Memory, and FIFOs
-
-The design intentionally uses all three, but at different levels:
-
-* **DDR / shared memory** is used for storing large matrices because the processor naturally manages large data in memory.
-* **AXI DMA** is used to move data between memory and the accelerator.
-* **AXI4-Stream** is used at the IP boundary because tile data is consumed in a sequential stream.
-* **Local FIFOs / buffers** are used inside the IP to connect modules and stage short bursts of data.
-
-So the intended data path is:
-
-```text
-DDR/shared memory -> DMA -> AXI4-Stream -> local buffers/FIFOs -> systolic array
-```
-
-This is not a contradiction:
-
-* DDR is used for storage
-* AXI4-Stream is used for feeding the IP
-* FIFOs are used for short internal producer-consumer communication
-
----
-
-## Why the Design Is Partitioned into Modules
-
-The design avoids one large monolithic block because:
-
-* smaller modules are easier to understand
-* each block can be tested separately
-* arithmetic and control logic can be debugged independently
-* modular partitioning helps parallelism and pipelining
-* the design can be upgraded later without redesigning everything
-
-Possible future upgrades include:
-
-* larger systolic array
-* double buffering
-* support for `C = A × B + X`
-* direct DDR access from the compute core
-* additional performance counters
-* support for different precisions
-
----
-
-## Initial Implementation Scope
-
-The first version of the project will support:
-
-* one GEMM operation at a time
-* tiled dense matrix multiplication
-* AXI4-Lite control
-* AXI4-Stream input/output
-* AXI DMA-based movement between DDR and IP
-* local tile buffers
-* systolic-array-based compute core
-
-The first version will **not** yet include:
-
-* multiple queued jobs
-* sparse matrices
-* full GEMM bias/add variants
-* advanced scheduling
-* direct DDR access from the compute core
-
----
-
-## Short Summary
-
-This project designs a **custom Vitis IP for tiled GEMM acceleration using a systolic array**.
-
-The system:
-
-* stores matrices in **DDR shared memory**
-* uses **AXI DMA** to move tiles
-* connects to the custom IP through **AXI4-Stream**
-* uses local buffers/FIFOs inside the IP to feed the compute array
-
-The custom IP itself includes:
-
-* AXI4-Lite control registers
-* stream interfaces
-* tile buffers
-* a controller
-* a systolic-array-based compute core
-
-GEMM is a strong choice because it is a regular, highly parallel multiply-accumulate workload that maps well to FPGA acceleration.
-
+1. Open `vivado/gemm_bd` in Vivado
+2. Generate bitstream
+3. Export Hardware (with bitstream included)
+4. Copy `design_1_wrapper.bit` and `design_1_wrapper.hwh` to a PYNQ-Z2 via Jupyter
+5. Use PYNQ's Python overlay framework to load and exercise the IP
