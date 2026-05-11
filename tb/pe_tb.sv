@@ -27,6 +27,9 @@ module pe_tb;
     always #5 clk = ~clk;
 
     initial begin
+        // For VCD files
+        // $dumpfile("pe_tb.vcd");
+        // $dumpvars(0, pe_tb);
         // Initialize all signals
         clk         = 0;
         rst         = 1;

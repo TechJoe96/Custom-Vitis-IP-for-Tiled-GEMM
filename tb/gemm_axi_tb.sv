@@ -52,14 +52,18 @@ module gemm_axi_tb;
 
     always #5 clk = ~clk;
 
+    // Drop awvalid/wvalid IMMEDIATELY when we observe bvalid, otherwise the
+    // slave returns to W_IDLE while these are still asserted and accepts a
+    // spurious second write (-> second start_pulse). Same issue for arvalid.
     task automatic axi_write(input logic [ADDR_WIDTH-1:0] addr, input logic [31:0] data);
         @(posedge clk);
         awaddr  <= addr;  awvalid <= 1;
         wdata   <= data;  wstrb   <= 4'hF;  wvalid <= 1;
         bready  <= 1;
         while (!bvalid) @(posedge clk);
+        awvalid <= 0;  wvalid <= 0;
         @(posedge clk);
-        awvalid <= 0;  wvalid <= 0;  bready <= 0;
+        bready  <= 0;
     endtask
 
     task automatic axi_read(input logic [ADDR_WIDTH-1:0] addr, output logic [31:0] data);
@@ -67,8 +71,9 @@ module gemm_axi_tb;
         araddr  <= addr;  arvalid <= 1;  rready <= 1;
         while (!rvalid) @(posedge clk);
         data = rdata;
+        arvalid <= 0;
         @(posedge clk);
-        arvalid <= 0;  rready <= 0;
+        rready <= 0;
     endtask
 
     logic signed [15:0] a_tile_all     [TOTAL];
